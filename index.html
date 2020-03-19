@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Libb | An Online Library</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Patua+One|Yeseva+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+  </header>
+
+  <main class="main-container">
+    <section class="">
+      <div class="row no-gutters">
+        <div class="col-2 section-one">
+          <div class="tab-section">
+            <nav class="navbar navbar-colored">
+              <a class="navbar-brand" href="/">Libb</a>
+              <ul class="navbar-nav ml-auto text-white">
+                <li class="nav-item active">
+                  <i class="fas fa-book-reader book-icon"></i>
+                </li>
+              </ul>
+            </nav>
+            <div class="app-links" id="app-links">
+              <li class="list-group-item">
+                <div class="profile">
+                  <img src="https://cdn.wpbeginner.com/wp-content/uploads/2012/08/gravatarlogo.jpg" alt="Profile Image">
+                  <span class="username ml-3">LIBBUSER</span>
+                </div>
+              </li>
+              <ul class="list-group list-group-flush tab-link-contents scroll-bar">
+                <li class="list-group-item">
+                  <ul>
+                    <li class="list-item title">Browse</li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="top-books">
+                        <i class="fas fa-book mr-3"></i>Manage Books</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="discover">
+                        <i class="fab fa-discourse mr-3"></i>Discover</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link" data-toggle="collapse" href="#collapseGenre" role="button"
+                        aria-expanded="false" aria-controls="collapseGenre">
+                        <i class="fas fa-th-list mr-3"></i>Genre <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    </li>
+                    <div class="collapse" id="collapseGenre">
+                      <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident.
+                      </div>
+                    </div>
+
+                  </ul>
+                </li>
+                <li class="list-group-item">
+                  <ul>
+                    <li class="list-item title">Shelves</li>
+                    <li class="list-item">
+                      <a class="list-item-link" data-toggle="collapse" href="#collapseShelf" role="button"
+                        aria-expanded="false" aria-controls="collapseShelf">
+                        <i class="fas fa-box mr-3"></i>Your Shelves <i
+                          class="fas fa-chevron-down dropdown-icon"></i></a>
+                    </li>
+                    <div class="collapse" id="collapseShelf">
+                      <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident.
+                      </div>
+                    </div>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="add-a-book">
+                        <i class="fas fa-plus-circle mr-3"></i>Add a Book</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link button" href="#" data-target="create-a-shelf">
+                        </i>Create a Shelf</a>
+                    </li>
+
+                  </ul>
+                </li>
+                <li class="list-group-item">
+                  <ul>
+                    <li class="list-item title">Your Books</li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="now-reading">
+                        <i class="fas fa-book-open mr-3"></i>Now Reading</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="favourite-reads">
+                        <i class="fab fa-readme mr-3"></i>Favourite Reads</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="history">
+                        <i class="fas fa-history mr-3"></i>History</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link get-link" href="#" data-target="bookmarks">
+                        <i class="fas fa-bookmark mr-3"></i>Bookmarks</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-7" id="navbar-light">
+          <div class="view-section section-two">
+            <nav class="navbar navbar-light">
+              <div class="dropdown navbar-dropdown w-100 d-flex align-items-center">
+                <div class="search-content d-flex">
+                  <form action="" class="w-100">
+                    <div class="search-items w-100 d-flex">
+                      <input type="text" name="" id="" placeholder="search" class="search-input">
+                      <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <a class="dropdown-icon-search ml-auto" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-chevron-down"></i>
+                </a>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenu2">
+                  <button class="dropdown-item" type="button">Action</button>
+                  <button class="dropdown-item" type="button">Another action</button>
+                  <button class="dropdown-item" type="button">Something else here</button>
+                </div>
+              </div>
+
+            </nav>
+            <div class="main-view-content">
+              <div class="add-a-book padded-section" id="add-a-book" style="display: none">
+                <div class="row no-gutters">
+                  <div class="col-3 pr-3">
+                    <div class="book-cover-image" id="book-cover">
+                      <div id="display-img" class="display-img"></div>
+                      <input type="file" name="" id="book-image" class="book-image file-input required"
+                        data-key="bookcover">
+                      <div id="drop_zone" class="drop-zone d-flex flex-column">
+                        <i class="fas fa-image"></i>
+                        <p id="add-book-cover"> Add Book Cover</p>
+                      </div>
+                      <span id="msg-bookcover" class="text-danger"></span>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="text-center">Add a Book</h4>
+                        <form id="addBookListForm">
+                          <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control required" data-key="title" id="title">
+                            <span id="msg-title" class="text-danger"></span>
+                          </div>
+                          <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="text" class="form-control required" data-key="author" id="author">
+                            <span id="msg-author" class="text-danger"></span>
+                          </div>
+                          <div class="row">
+                            <div class="col-7">
+                              <div class="form-group">
+                                <label for="booknum">Number of Pages</label>
+                                <input type="number" class="form-control required" data-key="booknum" id="booknum">
+                                <span id="msg-booknum" class="text-danger"></span>
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <div class="form-group">
+                                <div class="label mb-2">Status</div>
+                                <label class="switch">
+                                  <input type="checkbox" id="read" data-key="read">
+                                  <span class="slider round"></span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="genre">Select a Genre</label>
+                                <select class="form-control other-field" id="genre" data-key="genre">
+                                  <option value="" disabled selected>Genre</option>
+                                  <option value="adventure">Adventure</option>
+                                  <option value="romance">Romance</option>
+                                  <option value="fan-fiction">Fan Fiction</option>
+                                  <option value="thriller">Thriller</option>
+                                </select>
+                                <span id="msg-genre" class="text-danger"></span>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="shelf">Select a Shelf</label>
+                                <select class="form-control other-field" id="shelf" data-key="shelf">
+                                  <option value="" disabled selected>My Shelf</option>
+                                  <option value="new-books">New Books</option>
+                                </select>
+                                <span id="msg-shelf" class="text-danger"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="description">Descritpion</label>
+                            <textarea name="" data-key="description" id="description" cols="20" rows="5"
+                              class="form-control other-field"
+                              placeholder="Write a short description about your book"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="booklink">Link</label>
+                            <input type="text" class="form-control other-field" data-key="booklink" id="booklink">
+                            <small><em>Provide a link to your book</em></small>
+                          </div>
+                          <button type="submit" id="addBookListBtn" class="button w-100">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="top-books" id="top-books" style="display: none">
+                <div class="card-books">
+                  <section class="managed-reads padded-section">
+                    <h4>Manage Books</h4>
+                    <div class="all-books">
+                      <div class="managed-item" id="managed-books">
+
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="discover" id="discover" style="display: none">
+                <div class="card-books mt-4">
+                  <section class="top-reads padded-section">
+                    <div id="gallery" class="carousel slide" data-ride="carousel">
+                      <h4>Top Reads</h4>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="row no-gutters">
+                            <div class="col gutters">
+                              <div class="item" style="background: #ecb8d5">
+
+                                <img class="img-fluid"
+                                  src="https://www.creativindie.com/wp-content/uploads/2013/10/Enchantment-Book-Cover-Best-Seller1.jpg"
+                                  alt="book-cover" />
+                                <div class="info">
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6 mt-3">
+                                      <h5 class="">The Avengers of...</h5>
+                                      <small>By MaryAnn Chukwuka</small>
+                                      <small>200 votes</small>
+
+                                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...
+                                      </p>
+                                      <a href="#" class="button">See the book</a>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col">
+                              <div class="item" style="background: #fbadaf">
+                                <img class="img-fluid"
+                                  src="https://bookcoverexpress.com/wp-content/uploads/2016/03/mirrorlarge.jpg"
+                                  alt="book-cover" />
+                                <div class="info">
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6 mt-3 text-white">
+                                      <h5 class="">The Avengers</h5>
+                                      <small>By MaryAnn Chukwuka</small>
+                                      <small>200 votes</small>
+
+                                      <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                      </p>
+                                      <a href="#" class="button">See the book</a>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="carousel-item">
+                          <div class="row no-gutters">
+                            <div class="col gutters">
+                              <div class="item" style="background: #93d5e3">
+                                <img class="img-fluid"
+                                  src="https://images.randomhouse.com/cover/9780525534105?alt=no_cover_penguin.jpg"
+                                  alt="book-cover" />
+                                <div class="info">
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6 mt-3">
+                                      <h5 class="">The Avengers</h5>
+                                      <small>By MaryAnn Chukwuka</small>
+                                      <small>200 votes</small>
+
+                                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                      </p>
+                                      <a href="#" class="button">See the book</a>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col">
+                              <div class="item" style="background: #244779">
+                                <img class="img-fluid"
+                                  src="https://panmacmillanapi.blob.core.windows.net/pmapi/e12a8195-4610-4b2d-fa9f-08d58e45775c/editions/eace61f0-5b12-4274-f00b-08d757553368/original_400_400.jpg"
+                                  alt="book-cover" />
+                                <div class="info">
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6 mt-3 text-white">
+                                      <h5 class="">The Avengers</h5>
+                                      <small>By MaryAnn Chukwuka</small>
+                                      <small>200 votes</small>
+
+                                      <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                      </p>
+                                      <a href="#" class="button">See the book</a>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true">
+                          <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+
+                      <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true">
+                          <i class="fas fa-chevron-right"></i>
+                        </span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </section>
+
+                  <section class="recent-added mt-4">
+                    <div class="padded-section">
+                      <h4 class="mb-3">Recently Added</h4>
+                      <div class="content">
+                        <div class="item text-center">
+                          <div class="item-image">
+                            <img class="img"
+                              src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/After_2014_novel_cover.jpg/220px-After_2014_novel_cover.jpg"
+                              alt="">
+                            <a href="#">
+                              <i class="fas fa-book-open read-icon"></i>
+                            </a>
+                          </div>
+                          <div class="info mt-1">
+                            <h5>After You</h5>
+                            <p>By Anna Tudu</p>
+                          </div>
+                        </div>
+                        <div class="item text-center">
+                          <img
+                            src="https://damonza.com/wp-content/uploads/portfolio/nonfiction/Set%20For%20Life%202.jpg"
+                            alt="">
+                          <div class="info mt-1">
+                            <h5>Set for Life</h5>
+                            <p>By Anna Tudu</p>
+                          </div>
+                        </div>
+                        <div class="item text-center">
+                          <img
+                            src="https://bukovero.com/wp-content/uploads/2016/07/Harry_Potter_and_the_Cursed_Child_Special_Rehearsal_Edition_Book_Cover.jpg"
+                            alt="">
+                          <div class="info mt-1">
+                            <h5>Harry Potter</h5>
+                            <p>By Anna Tudu</p>
+                          </div>
+                        </div>
+                        <div class="item text-center">
+                          <img src="https://damonza.com/wp-content/uploads/portfolio/fiction/Water%20&%20Flame%2006.jpg"
+                            alt="">
+                          <div class="info mt-1">
+                            <h5>Water & Fame</h5>
+                            <p>By Anna Tudu</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="all-books mt-4">
+                    <div class="padded-section">
+                      <h4>All Books</h4>
+                      <div class="content">
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="now-reading" id="now-reading" style="display: none">
+                <div class="container p-4 now-reading-form">
+                  <div class="row">
+                    <div class="col-7">
+                      <form action="">
+                        <div class="form-group">
+                          <label for="current-read">What book are you currently reading?</label>
+                          <select class="form-control text-center current-read" id="current-read"
+                            data-key="current-read">
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="current-page">Input current page number.</label>
+                          <input type="number" id="current-page" class="form-control" min="1" max="999">
+                        </div>
+                      </form>
+                    </div>
+                    <!-- <div class="col-6">
+                      <div class="row align-items-center">
+                        <div class="col-4">
+                          <div id="current-read-content" class="current-read-content">
+                          </div>
+                        </div>
+                        <div class="col-8">
+                          <div id="current-read-page" class="current-read-page">
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+
+                </div>
+              </div>
+              <div class="favourite-reads" id="favourite-reads" style="display: none">
+                <div class="card-books">
+                  <section class="bookmarks padded-section">
+                    <h4>Favourite Books</h4>
+                    <div class="all-books">
+                      <div class="d-grid books-grid" id="favourite-books">
+
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="history" id="history" style="display: none">
+                <div class="card">
+                  I am history
+                </div>
+              </div>
+              <div class="bookmarks" id="bookmarks" style="display: none">
+                <div class="card-books">
+                  <section class="bookmarks padded-section">
+                    <h4>Bookmarks</h4>
+                    <div class="all-books">
+                      <div class="d-grid books-grid" id="bookmarked-books">
+
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3 last-column" id="last-column" style="display: none">
+          <section class="tab-section feeds-section w-25">
+            <div class="feeds-content">
+              <div class="currently-reading">
+
+                <ul class="list-group list-group-flush text-center">
+                  <li class="list-group-item p-2">
+                    <p class="m-0">Currently Reading</p>
+                  </li>
+                  <li class="list-group-item">
+                    <div class="row no-gutters">
+                      <div class="col-10">
+                        <h2 id="currently-reading-title">The Blade Witch</h2>
+                        <small id="currently-reading-author">By Nygel Oglesby</small>
+                      </div>
+                      <div class="col-2">
+                        <div id="current-read-image" class="current-read-image">
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </li>
+                </ul>
+              </div>
+              <div class="current-progress-info row no-gutters">
+                <div class="col-2">
+                  <div class="progress-percentage" id="progress-percentage">
+                    <span id="progress-percentage-info">34%</span>
+                  </div>
+                </div>
+                <div class="progress-bar-content col">
+                  <div class="progress">
+                    <div class="progress-bar bg-primary-color" id="progress-bar-book" role="progressbar"
+                      style="width: 20%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <span class="exceed-page-msg"></span>
+                </div>
+              </div>
+              <div class="review-content">
+                <div class="review-title">
+                  <p class="">Reviews for</p>
+                  <h5 class="book-reviewed-title text-center"></h5>
+                </div>
+                <div class="review-container list-group list-group-flush scroll-bar" id="review-container">
+                </div>
+                <div class="read-review">
+                  <div class="row no-gutters align-items-end">
+                    <div class="col-10">
+                      <div class="star-rating mb-2">
+                        <p class="text-white mb-0">Rate Book</p>
+                        <span class="fa fa-star checked star-icon" id="rate-1" rate-id="1"></span>
+                        <span class="fa fa-star star-icon" id="rate-2" rate-id="2"></span>
+                        <span class="fa fa-star star-icon" id="rate-3" rate-id="3"></span>
+                        <span class="fa fa-star star-icon" id="rate-4" rate-id="4"></span>
+                        <span class="fa fa-star star-icon" id="rate-5" rate-id="5"></span>
+                      </div>
+
+                      <input type="text" id="review-title" class="review-input w-100 mb-3" placeholder="Review Title">
+                      <textarea class="review-input scroll-bar w-100" id="review-comment"
+                        placeholder="Write a review"></textarea>
+                      <div class="hidden-id"></div>
+                    </div>
+                    <div class="col-2">
+                      <button type="submit" class="review-btn" id="add-review-btn">
+                        <i class="fa fa-paper-plane fa-2x ml-3"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- <input type="text" class="review-input" placeholder="Write a review"> -->
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal View Book -->
+    <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <button type="button" class="close button-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"> <i class="fas fa-times close-icon"></i> </span>
+          </button>
+
+          <div class="modal-body p-0">
+            <div class="content">
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Edit Book -->
+    <div class="modal fade" id="editBookModalLong" tabindex="-1" role="dialog" aria-labelledby="editBookModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document" style="max-width: 650px">
+        <div class="modal-content p-4" style="background-color: #eee">
+          <button type="button" class="close button-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"> <i class="fas fa-times close-icon"></i> </span>
+          </button>
+          <form id="editBookListForm">
+            <div class="row no-gutters">
+              <div class="col-3 pr-3">
+                <div class="book-cover-image" id="book-cover">
+                  <div id="edit-display-img" class="edit-display-img form-control p-0 h-100" data-key="book_image"
+                    id="book_image">
+                  </div>
+                  <input type="file" name="" id="edit-book-image" class="book-image file-input required">
+                  <span id="msg-bookcover" class="text-danger"></span>
+                </div>
+              </div>
+              <div class="col-9">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="text-center">Edit Book</h4>
+
+                    <div class="form-group">
+                      <label for="title">Title</label>
+                      <input type="text" class="form-control required" data-key="title" id="edit-title">
+                    </div>
+                    <div class="form-group">
+                      <label for="author">Author</label>
+                      <input type="text" class="form-control required" data-key="author" id="edit-author">
+
+                    </div>
+                    <div class="row">
+                      <div class="col-7">
+                        <div class="form-group">
+                          <label for="booknum">Number of Pages</label>
+                          <input type="number" class="form-control required" data-key="num" id="edit-booknum">
+                        </div>
+                      </div>
+                      <div class="col-5">
+                        <div class="form-group">
+                          <div class="label mb-2">Status</div>
+                          <label class="switch">
+                            <input type="checkbox" id="edit-read" data-key="read" class="form-control">
+                            <span class="slider round"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label for="genre">Select a Genre</label>
+                          <select class="form-control other-field" id="edit-genre" data-key="genre">
+                            <option value="" disabled selected>Genre</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="romance">Romance</option>
+                            <option value="fan-fiction">Fan Fiction</option>
+                            <option value="thriller">Thriller</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label for="shelf">Select a Shelf</label>
+                          <select class="form-control other-field" id="edit-shelf" data-key="shelf">
+                            <option value="" disabled selected>My Shelf</option>
+                            <option value="new-books">New Books</option>
+                          </select>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="description">Descritpion</label>
+                      <textarea name="" data-key="description" id="edit-description" cols="20" rows="5"
+                        class="form-control other-field"
+                        placeholder="Write a short description about your book"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="booklink">Link</label>
+                      <input type="text" class="form-control other-field" data-key="booklink" id="edit-booklink">
+                      <small><em>Provide a link to your book</em></small>
+                    </div>
+                    <div id="hidden-field"></div>
+                    <button type="submit" id="editBookListBtn" class="button w-100">Edit</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+  <script src="js/app.js" type="module"></script>
+</body>
+
+</html>

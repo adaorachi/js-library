@@ -1,0 +1,882 @@
+/* Global  */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+ul li {
+  list-style: none;
+}
+
+a,
+a:hover {
+  text-decoration: none !important;
+}
+
+h2 {
+  font-family: "Lobster", cursive;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+h4 {
+  font-family: "Patua One", cursive;
+  color: #555;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+h5 {
+  font-family: "Lobster", cursive;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.padded-section {
+  padding: 0.7rem 3rem;
+}
+
+.bg-primary-color {
+  background: -webkit-gradient(linear, left top, left bottom, from(#019cba), to(#659abc));
+  background: linear-gradient(to bottom, #019cba, #659abc);
+}
+
+.color-primary {
+  color: #019cba;
+}
+
+.button {
+  background: -webkit-gradient(linear, right top, left top, from(#019cba), to(#659abc));
+  background: linear-gradient(to left, #019cba, #659abc);
+  padding: 0.3rem 1rem;
+  border-radius: 15px;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+
+.button:hover {
+  -webkit-box-shadow: 0 3px 3px #352f2b;
+          box-shadow: 0 3px 3px #352f2b;
+  color: #eee;
+}
+
+.main-container {
+  background-color: #eee;
+  /* Hide default HTML checkbox */
+  /* The slider */
+  /* Rounded sliders */
+}
+
+.main-container .navbar {
+  padding: 0 1rem;
+  height: 3.4rem;
+}
+
+.main-container .navbar.navbar-colored {
+  background: -webkit-gradient(linear, left top, left bottom, from(#019cba), to(#659abc));
+  background: linear-gradient(to bottom, #019cba, #659abc);
+  -webkit-box-shadow: -1px 3px 3px #352f2b;
+          box-shadow: -1px 3px 3px #352f2b;
+}
+
+.main-container .navbar.navbar-colored.navbar-last {
+  -webkit-box-shadow: 1px 3px 3px #352f2b;
+          box-shadow: 1px 3px 3px #352f2b;
+}
+
+.main-container .navbar.navbar-light {
+  border-bottom: 1px solid #eee;
+  height: 3.4rem;
+  padding: 0;
+  background-color: #fff;
+  color: #aaa;
+}
+
+.main-container .navbar.navbar-light .navbar-dropdown {
+  height: 100%;
+}
+
+.main-container .navbar.navbar-light .search-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  padding: 0 1rem;
+}
+
+.main-container .navbar.navbar-light .search-content {
+  width: 90%;
+}
+
+.main-container .navbar.navbar-light .dropdown-icon-search {
+  width: 7%;
+  height: 100%;
+  border-left: 1px solid #eee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main-container .navbar.navbar-light i {
+  font-size: 1.4rem;
+}
+
+.main-container .navbar .navbar-brand {
+  font-family: "Lobster", cursive;
+  font-size: 1.8rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.main-container .list-group-item {
+  background-color: transparent;
+  color: #fff;
+}
+
+.main-container .tab-section {
+  background-color: #404040;
+  position: fixed;
+  width: 16.67%;
+}
+
+.main-container .tab-section .book-icon {
+  font-size: 1.5rem;
+}
+
+.main-container .tab-section .app-links img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.main-container .tab-section .app-links .dropdown-icon {
+  font-size: 0.7rem;
+}
+
+.main-container .tab-section .app-links .title.list-item {
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: #c1c1c1;
+}
+
+.main-container .tab-section .app-links .list-item {
+  padding: 0.45rem 0;
+}
+
+.main-container .tab-section .app-links .list-item .list-item-link {
+  color: #f8f8f8;
+  font-size: 0.8rem;
+}
+
+.main-container .tab-section .app-links .list-item .list-item-link:hover {
+  color: #ccc;
+}
+
+.main-container .main-view-content .add-a-book {
+  width: 65%;
+}
+
+.main-container .main-view-content .form-group label,
+.main-container .main-view-content .form-group .label {
+  color: #555;
+  font-weight: 500;
+}
+
+.main-container .main-view-content .form-group .form-control {
+  outline: none;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  border-radius: 15px;
+}
+
+.main-container .main-view-content .form-group .form-control:focus {
+  border: 1px solid #659abc !important;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-control-prev-icon,
+.main-container .main-view-content .discover .top-reads .carousel .carousel-control-next-icon {
+  background: #449abb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.5rem;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .gutters {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-inner {
+  height: 250px;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item {
+  height: 100%;
+  width: 100%;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item .row {
+  height: 100%;
+  width: 100%;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item {
+  background-color: #ecb8d5;
+  width: 100%;
+  height: 80%;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img {
+  width: 40%;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  -webkit-box-shadow: 8px 8px 12px -6px black;
+          box-shadow: 8px 8px 12px -6px black;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:after, .main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 10px;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:after {
+  right: 10px;
+  -webkit-transform: skew(8deg) rotate(3deg);
+          transform: skew(8deg) rotate(3deg);
+}
+
+.main-container .main-view-content .discover .recent-added {
+  background: #d9dada;
+  padding: 0.2rem 0 0;
+}
+
+.main-container .main-view-content .all-books .books-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem 1rem;
+}
+
+.main-container .main-view-content .recent-added .managed-item,
+.main-container .main-view-content .all-books .managed-item,
+.main-container .main-view-content .favourite-reads .managed-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content,
+.main-container .main-view-content .all-books .managed-item .managed-content,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content {
+  position: relative;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .delete-icon,
+.main-container .main-view-content .all-books .managed-item .managed-content .delete-icon,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .delete-icon {
+  position: absolute;
+  top: -9px;
+  right: 30px;
+  font-size: 1.5rem;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .hovered-content,
+.main-container .main-view-content .all-books .managed-item .managed-content .hovered-content,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .hovered-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .cover,
+.main-container .main-view-content .all-books .managed-item .managed-content .cover,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  background: #259bbb99;
+  color: #fff;
+  font-size: 1.2rem;
+  -webkit-transition: opacity 650ms;
+  transition: opacity 650ms;
+  cursor: pointer;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .cover:hover,
+.main-container .main-view-content .all-books .managed-item .managed-content .cover:hover,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover:hover {
+  background: #259abbe7;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .cover-unhover,
+.main-container .main-view-content .all-books .managed-item .managed-content .cover-unhover,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-unhover {
+  opacity: 0;
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content .cover-hover,
+.main-container .main-view-content .all-books .managed-item .managed-content .cover-hover,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-hover {
+  opacity: 1;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-animation: jump 0.5s linear alternate;
+          animation: jump 0.5s linear alternate;
+}
+
+@-webkit-keyframes jump {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.3, 0.3, 1);
+            transform: scale3d(0.3, 0.3, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes jump {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.3, 0.3, 1);
+            transform: scale3d(0.3, 0.3, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
+.main-container .main-view-content .recent-added .managed-item .managed-content:hover .cover,
+.main-container .main-view-content .all-books .managed-item .managed-content:hover .cover,
+.main-container .main-view-content .favourite-reads .managed-item .managed-content:hover .cover {
+  opacity: 1;
+}
+
+.main-container .main-view-content .recent-added .content,
+.main-container .main-view-content .all-books .content,
+.main-container .main-view-content .favourite-reads .content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+}
+
+.main-container .main-view-content .recent-added img,
+.main-container .main-view-content .all-books img,
+.main-container .main-view-content .favourite-reads img {
+  width: 130px;
+  height: 200px;
+  position: relative;
+  top: 0;
+}
+
+.main-container .main-view-content .recent-added .item-image,
+.main-container .main-view-content .all-books .item-image,
+.main-container .main-view-content .favourite-reads .item-image {
+  position: relative;
+}
+
+.main-container .main-view-content .recent-added .item-image:hover .img,
+.main-container .main-view-content .all-books .item-image:hover .img,
+.main-container .main-view-content .favourite-reads .item-image:hover .img {
+  -webkit-box-shadow: 8px 8px 12px -6px black;
+          box-shadow: 8px 8px 12px -6px black;
+  top: -2px;
+  -webkit-transition: all 650ms;
+  transition: all 650ms;
+}
+
+.main-container .main-view-content .recent-added .item-image .book-icons,
+.main-container .main-view-content .all-books .item-image .book-icons,
+.main-container .main-view-content .favourite-reads .item-image .book-icons {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.main-container .main-view-content .recent-added .item-image .book-icons span,
+.main-container .main-view-content .all-books .item-image .book-icons span,
+.main-container .main-view-content .favourite-reads .item-image .book-icons span {
+  color: #fff;
+  background: #019cba;
+  padding: 0 0.2rem;
+  margin: 0.3rem 0;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.main-container .main-view-content .recent-added .item-image:hover .book-icons,
+.main-container .main-view-content .all-books .item-image:hover .book-icons,
+.main-container .main-view-content .favourite-reads .item-image:hover .book-icons {
+  opacity: 1;
+  -webkit-transition: all 650ms;
+  transition: all 650ms;
+}
+
+.main-container .main-view-content .recent-added .favourite-icon.liked-reads,
+.main-container .main-view-content .all-books .favourite-icon.liked-reads,
+.main-container .main-view-content .favourite-reads .favourite-icon.liked-reads {
+  color: #e01f1f !important;
+}
+
+.main-container .main-view-content .recent-added .bookmark-icon.booked-reads,
+.main-container .main-view-content .all-books .bookmark-icon.booked-reads,
+.main-container .main-view-content .favourite-reads .bookmark-icon.booked-reads {
+  color: #019cba;
+  background: -webkit-gradient(linear, left bottom, left top, from(#019cba), to(#aeb0dd));
+  background: linear-gradient(to top, #019cba, #aeb0dd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main-container .main-view-content .bookmarks,
+.main-container .main-view-content .managed-reads,
+.main-container .main-view-content .now-reading-form {
+  height: 100vh;
+}
+
+.main-container .main-view-content .bookmarks .all-books,
+.main-container .main-view-content .managed-reads .all-books,
+.main-container .main-view-content .now-reading-form .all-books {
+  -webkit-transform: translateY(40px);
+          transform: translateY(40px);
+}
+
+.main-container .main-view-content .bookmarks .all-books .item,
+.main-container .main-view-content .managed-reads .all-books .item,
+.main-container .main-view-content .now-reading-form .all-books .item {
+  background-color: #fff;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  margin: 0 0.4rem;
+}
+
+.main-container .main-view-content .bookmarks .all-books .item img,
+.main-container .main-view-content .managed-reads .all-books .item img,
+.main-container .main-view-content .now-reading-form .all-books .item img {
+  width: 120px;
+  position: absolute;
+  top: -30px;
+  left: 15px;
+  -webkit-box-shadow: 8px 8px 12px -6px black;
+          box-shadow: 8px 8px 12px -6px black;
+}
+
+.main-container .main-view-content .bookmarks .all-books .item img:after, .main-container .main-view-content .bookmarks .all-books .item img:before,
+.main-container .main-view-content .managed-reads .all-books .item img:after,
+.main-container .main-view-content .managed-reads .all-books .item img:before,
+.main-container .main-view-content .now-reading-form .all-books .item img:after,
+.main-container .main-view-content .now-reading-form .all-books .item img:before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 10px;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.main-container .main-view-content .bookmarks .all-books .item img:after,
+.main-container .main-view-content .managed-reads .all-books .item img:after,
+.main-container .main-view-content .now-reading-form .all-books .item img:after {
+  right: 10px;
+  -webkit-transform: skew(8deg) rotate(3deg);
+          transform: skew(8deg) rotate(3deg);
+}
+
+.main-container .main-view-content .now-reading-form .content {
+  width: 150px;
+  text-align: center;
+}
+
+.main-container .main-view-content .now-reading-form .content .image {
+  width: 100%;
+  height: 230px;
+}
+
+.main-container .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.main-container .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.main-container .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.main-container .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.main-container input:checked + .slider {
+  background-color: #019cba;
+}
+
+.main-container input:focus + .slider {
+  -webkit-box-shadow: 0 0 1px #659abc;
+          box-shadow: 0 0 1px #659abc;
+}
+
+.main-container input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.main-container .slider.round {
+  border-radius: 34px;
+}
+
+.main-container .slider.round:before {
+  border-radius: 50%;
+}
+
+.main-container .drop-zone {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 220px;
+  z-index: 1;
+  border: 2px dashed #ccc;
+  border-radius: 6px;
+  background-color: #f8f8f8;
+  font-size: 2.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main-container .file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.main-container .book-cover-image,
+.main-container .book-cover-image-edit {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.main-container .display-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.main-container i {
+  font-size: 1.2rem;
+}
+
+.main-container .feeds-section .currently-reading {
+  background-color: #484848;
+  color: #fff;
+}
+
+.main-container .feeds-section .currently-reading .reading-tab,
+.main-container .feeds-section .currently-reading .book-tab {
+  padding: 0.7rem;
+  border-right: 1px inset #fff;
+}
+
+.main-container .feeds-section .currently-reading p {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: #fff;
+}
+
+.main-container .feeds-section .currently-reading .current-read-image {
+  width: 40px;
+  height: 50px;
+}
+
+.main-container .feeds-section .current-progress-info .progress-percentage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.main-container .feeds-section .current-progress-info .progress-percentage span {
+  background: #eee;
+  border-radius: 5px;
+  padding: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.main-container .feeds-section .current-progress-info .progress-bar-content {
+  background: #f3f7f9;
+  padding: 1rem;
+}
+
+.main-container .feeds-section .current-progress-info .progress-bar-content .progress,
+.main-container .feeds-section .current-progress-info .progress-bar-content .progress-bar {
+  height: 8px;
+}
+
+.main-container .feeds-section .review-content {
+  background-color: #fff;
+  height: 100vh;
+}
+
+.main-container .feeds-section .review-content .review-title {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.main-container .feeds-section .review-content .review-title p {
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.main-container .feeds-section .review-content .read-review {
+  position: fixed;
+  bottom: 0;
+  padding: 1rem;
+  background: #5c5c5a;
+  width: 25%;
+}
+
+.main-container .feeds-section .review-content .review-input {
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #eee;
+  outline: none;
+  color: #eee;
+}
+
+.main-container .feeds-section .review-content .review-btn {
+  background: transparent;
+  border: none;
+  color: #eee;
+  outline: none;
+}
+
+.main-container .feeds-section .review-content .star-icon {
+  cursor: pointer;
+}
+
+.main-container .feeds-section .review-content .star,
+.main-container .feeds-section .review-content .star-icon {
+  font-size: 0.8rem;
+}
+
+.main-container .feeds-section .review-content .star-icon.checked,
+.main-container .feeds-section .review-content .check {
+  color: #ffa500;
+}
+
+.main-container .feeds-section .review-content .uncheck,
+.main-container .feeds-section .review-content .star-icon {
+  color: #bbb;
+}
+
+.main-container .scroll-bar {
+  height: 84vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.main-container .scroll-bar.review-container {
+  height: 35%;
+}
+
+.main-container .scroll-bar.review-input {
+  height: 50px;
+}
+
+.main-container .scroll-bar::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+.main-container .scroll-bar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+  border-radius: 6px;
+}
+
+.main-container .scroll-bar::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-image: -webkit-gradient(linear, right top, left bottom, from(#019cba), to(#659abc));
+  background-image: linear-gradient(to left bottom, #019cba, #659abc);
+}
+
+.main-container .scroll-bar::-webkit-scrollbar-button {
+  background-color: transparent;
+}
+
+.main-container .scroll-bar::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+.modal-content .button-close {
+  position: absolute;
+  top: -25px;
+  right: 0;
+}
+
+.modal-content .button-close .close-icon {
+  color: #019cba;
+}
+
+.modal-content .modal-star-checked {
+  color: #ffa500;
+}
+
+.modal-content .info {
+  padding: 1rem 1.5rem;
+}
+
+.modal-content .info h6 {
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+/*# sourceMappingURL=style.css.map */
