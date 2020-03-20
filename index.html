@@ -20,7 +20,68 @@
   </header>
 
   <main class="main-container">
-    <section class="">
+    <section class="login-form text-center position-relative" id="login-form" style="display: none;">
+      <div class="auth-user-content">
+        <div class="sign-up-form" style="display: none;">
+          <h4>SignUp</h4>
+          <span class="text-danger" id="signup-error-msg"></span>
+          <form action="">
+            <div class="login-content">
+              <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"><i class="fas fa-at"></i></span>
+                </div>
+                <input type="email" class="form-control" placeholder="Email Address" id="email"
+                  aria-label="Email Address" aria-describedby="addon-wrapping">
+              </div>
+              <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"> <i class="fas fa-lock"></i> </span>
+                </div>
+                <input type="password" class="form-control" id="password" placeholder="Password" aria-label="Username"
+                  aria-describedby="addon-wrapping">
+              </div>
+
+              <input type="button" value="SignUp" class="button" id="sign-up-btn">
+              <!-- <button type="submit" class="button" id="sign-up-btn">SignUp</button> -->
+            </div>
+          </form>
+          <div class="mt-3">
+            <p>Already a member? <span class="link-to-sign-in" id="link-to-sign-in">Login here</span></p>
+          </div>
+        </div>
+        <div class="login-in-form">
+          <h4>Login</h4>
+          <span class="text-danger" id="login-error-msg"></span>
+          <form action="">
+            <div class="login-content">
+              <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"><i class="fas fa-at"></i></span>
+                </div>
+                <input type="email" class="form-control" placeholder="Email Address" id="login-email"
+                  aria-label="Email Address" aria-describedby="addon-wrapping">
+              </div>
+              <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"> <i class="fas fa-lock"></i> </span>
+                </div>
+                <input type="password" class="form-control" id="login-password" placeholder="Password"
+                  aria-label="Username" aria-describedby="addon-wrapping">
+              </div>
+
+              <input type="button" value="LogIn" class="button" id="log-in-btn">
+            </div>
+          </form>
+          <div class="mt-3">
+            <p>Want to be a member? <span class="link-to-sign-up" id="link-to-sign-up">Signup here</span></p>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+    <section class="app-container" id="app-container" style="display: none;">
       <div class="row no-gutters">
         <div class="col-2 section-one">
           <div class="tab-section">
@@ -111,6 +172,10 @@
                     <li class="list-item">
                       <a class="list-item-link get-link" href="#" data-target="bookmarks">
                         <i class="fas fa-bookmark mr-3"></i>Bookmarks</a>
+                    </li>
+                    <li class="list-item">
+                      <a class="list-item-link" href="#" id="logout-btn">
+                        <i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
                     </li>
                   </ul>
                 </li>
@@ -237,6 +302,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
               <div class="top-books" id="top-books" style="display: none">
                 <div class="card-books">
@@ -383,9 +449,6 @@
                             <img class="img"
                               src="https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/After_2014_novel_cover.jpg/220px-After_2014_novel_cover.jpg"
                               alt="">
-                            <a href="#">
-                              <i class="fas fa-book-open read-icon"></i>
-                            </a>
                           </div>
                           <div class="info mt-1">
                             <h5>After You</h5>
@@ -706,10 +769,12 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 

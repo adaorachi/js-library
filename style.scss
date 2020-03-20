@@ -104,6 +104,28 @@ p {
 .main-container {
   background-color: #eee;
 
+  .login-form {
+    width: 30%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 3rem;
+
+    .input-group {
+      margin-bottom: 2rem;
+
+      .input-group-prepend {
+        width: 40px;
+      }
+    }
+
+    .link-to-sign-in,
+    .link-to-sign-up {
+      color: #099cba;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
   .navbar {
     padding: 0 1rem;
     height: 3.4rem;

@@ -1,19 +1,95 @@
+/* global firebase,  */
+
 // Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyDE9O_Vdf00nik85EupWYgHorTDKgmqmes",
-  authDomain: "my-library-project-8cc42.firebaseapp.com",
-  databaseURL: "https://my-library-project-8cc42.firebaseio.com",
-  projectId: "my-library-project-8cc42",
-  storageBucket: "my-library-project-8cc42.appspot.com",
-  messagingSenderId: "600577021676",
-  appId: "1:600577021676:web:b3f907c0d0d51aad43b7c9",
-  measurementId: "G-PGBPKN3WHY"
+const firebaseConfig = {
+  apiKey: 'AIzaSyDE9O_Vdf00nik85EupWYgHorTDKgmqmes',
+  authDomain: 'my-library-project-8cc42.firebaseapp.com',
+  databaseURL: 'https://my-library-project-8cc42.firebaseio.com',
+  projectId: 'my-library-project-8cc42',
+  storageBucket: 'my-library-project-8cc42.appspot.com',
+  messagingSenderId: '600577021676',
+  appId: '1:600577021676:web:b3f907c0d0d51aad43b7c9',
+  measurementId: 'G-PGBPKN3WHY',
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const dbRef = firebase.database().ref();
 
+
+function Auth() {
+  this.signUp = () => {
+    function signUserUp() {
+      const [email, password] = [document.getElementById('email'), document.getElementById('password')];
+
+      const [username, photo] = [email.value.split('@')[0], 'https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg'];
+
+      firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
+        const userInfo = { username, photo };
+        const users = dbRef.child('users');
+        users.push(userInfo);
+
+      }).catch((error) => {
+        document.getElementById('signup-error-msg').innerText = error.message;
+      });
+    }
+    const signUpButton = document.getElementById('sign-up-btn');
+    signUpButton.addEventListener('click', signUserUp);
+  };
+
+  this.signOut = () => {
+    function signUserOut() {
+      firebase.auth().signOut();
+    }
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', signUserOut);
+  };
+
+  this.signIn = () => {
+    function signUserIn() {
+      const [loginEmail, loginPassword] = [document.getElementById('login-email'), document.getElementById('login-password')];
+
+      firebase.auth().signInWithEmailAndPassword(loginEmail.value, loginPassword.value).catch((error) => {
+        document.getElementById('login-error-msg').innerText = error.message;
+      });
+    }
+
+    const signInButton = document.getElementById('log-in-btn');
+    signInButton.addEventListener('click', signUserIn);
+  };
+
+  this.userIsSignedIn = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('app-container').style.display = 'block';
+      } else {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('app-container').style.display = 'none';
+      }
+    });
+  }
+
+  this.showAuthForm = () => {
+    const signInBtn = document.querySelector('#link-to-sign-in');
+    const signUpBtn = document.querySelector('#link-to-sign-up');
+    signInBtn.addEventListener('click', () => {
+      document.querySelector('.login-in-form').style.display = 'block';
+      document.querySelector('.sign-up-form').style.display = 'none';
+    });
+    signUpBtn.addEventListener('click', () => {
+      document.querySelector('.login-in-form').style.display = 'none';
+      document.querySelector('.sign-up-form').style.display = 'block';
+    });
+  };
+}
+
+const auth = new Auth();
+auth.signUp();
+auth.signOut();
+auth.signIn();
+auth.userIsSignedIn();
+auth.showAuthForm();
 
 // Book Constructor
 function Book(title, author, num, read) {
@@ -56,7 +132,7 @@ UI.prototype.displayViewContent = function (arrLinks, clickedLink) {
     return link != clickedLink
   })
 
-  filteredArrays.forEach(function (linkitem) {
+  filteredArrays.forEach((linkitem) => {
     let filteritem = linkitem = null ? 'top-books' : linkitem;
     document.getElementById(filteritem).style.display = 'none';
     document.getElementById(clickedLink).style.display = 'block';
@@ -73,7 +149,7 @@ UI.prototype.displayInputMsg = function (ele, msg, className) {
 
 UI.prototype.displayReviews = function () {
   const addReview = document.getElementById('add-review-btn');
-  addReview.addEventListener('click', function (e) {
+  addReview.addEventListener('click', (e) => {
     const review_comment = document.querySelector('#review-comment').value;
     const review_title = document.querySelector('#review-title').value;
     const review_id = document.querySelector('#review-id').value;
@@ -114,7 +190,7 @@ UI.prototype.displayReviews = function () {
 
   firebase.database().ref('addreview').once('value', (snap) => {
     let pushed_review = [];
-    snap.forEach(function (childSnapshot) {
+    snap.forEach((childSnapshot) => {
       let childKey = childSnapshot.key;
       let childData = childSnapshot.val();
       pushed_review.push(childData);
@@ -125,7 +201,7 @@ UI.prototype.displayReviews = function () {
 
 UI.prototype.addBookToList = function () {
   const addBookList = document.getElementById('addBookListBtn');
-  addBookList.addEventListener('click', function (e) {
+  addBookList.addEventListener('click', (e) => {
     const title = document.querySelector('#title'),
       author = document.querySelector('#author'),
       booknum = document.querySelector('#booknum'),
@@ -193,7 +269,7 @@ UI.prototype.addBookToList = function () {
 }
 
 const editBookList = document.getElementById('editBookListBtn');
-editBookList.addEventListener('click', function (e) {
+editBookList.addEventListener('click', (e) => {
 
   const bookID = document.querySelector("#edit-book-usid").value;
   const bookRef = dbRef.child('addbook/' + bookID);
@@ -281,7 +357,7 @@ UI.prototype.rateBook = function () {
 if (window.localStorage.getItem('page_link') != 'add-a-book') {
   const book = new Book();
 
-  firebase.database().ref('addbook').once('value', function (snapshot) {
+  firebase.database().ref('addbook').once('value', (snapshot) => {
     let addBookToContent = document.querySelector('.all-books .content');
     let addManagedBookToContent = document.querySelector('.all-books #managed-books');
     let pushArr = []
@@ -610,7 +686,7 @@ if (window.localStorage.getItem('page_link') != 'add-a-book') {
         let userID = document.getElementById(id).getAttribute("data-read");
         let userRef = dbRef.child('addbook/' + userID);
         userRef.update({
-          "read": changed_text[1]
+          read: changed_text[1]
         });
       }
     })
@@ -733,7 +809,7 @@ LocalStorage.prototype.setReviewId = function (reviewId) {
 
 LocalStorage.prototype.setPage = function (clickedArea) {
   let clicked_area = document.getElementById(clickedArea)
-  clicked_area.addEventListener('click', function (e) {
+  clicked_area.addEventListener('click', (e) => {
     if (e.target.className == 'list-item-link get-link') {
       let page_target = e.target.getAttribute('data-target');
       console.log(page_target);
@@ -773,7 +849,7 @@ ui.rateBook()
 
 
 
-$('#book-image').on('change', function (event) {
+$('#book-image').on('change', (event) => {
 
   var files = event.target.files;
   var image = files[0]
@@ -786,15 +862,15 @@ $('#book-image').on('change', function (event) {
     $('#display-img').html(img);
 
     $('#drop_zone').css({
-      'opacity': '0',
-      'border': 'none'
+      opacity: '0',
+      border: 'none'
     });
   }
   reader.readAsDataURL(image);
   console.log(files);
 });
 
-$('#edit-book-image').on('change', function (event) {
+$('#edit-book-image').on('change', (event) => {
   var files = event.target.files;
   var image = files[0]
   console.log(image.size);
@@ -807,8 +883,8 @@ $('#edit-book-image').on('change', function (event) {
     $('#edit-display-img').html(img);
 
     $('#drop_zone').css({
-      'opacity': '0',
-      'border': 'none'
+      opacity: '0',
+      border: 'none'
     });
   }
   reader.readAsDataURL(image);
