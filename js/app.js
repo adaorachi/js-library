@@ -25,6 +25,8 @@ function Auth() {
       const [username, photo] = [email.value.split('@')[0], 'https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg'];
 
       firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
+        document.getElementById('sign-up-form-content').reset();
+
         const userInfo = { username, photo };
         const users = dbRef.child('users');
         users.push(userInfo);
@@ -49,9 +51,12 @@ function Auth() {
     function signUserIn() {
       const [loginEmail, loginPassword] = [document.getElementById('login-email'), document.getElementById('login-password')];
 
-      firebase.auth().signInWithEmailAndPassword(loginEmail.value, loginPassword.value).catch((error) => {
-        document.getElementById('login-error-msg').innerText = error.message;
-      });
+      firebase.auth().signInWithEmailAndPassword(loginEmail.value, loginPassword.value).then(() => {
+        document.getElementById('sign-in-form-content').reset();
+      })
+        .catch((error) => {
+          document.getElementById('login-error-msg').innerText = error.message;
+        });
     }
 
     const signInButton = document.getElementById('log-in-btn');
@@ -59,27 +64,25 @@ function Auth() {
   };
 
   this.userIsSignedIn = () => {
+    const ui = new UI();
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('app-container').style.display = 'block';
+        ui.hideDisplayContent('#app-container', '#login-form');
       } else {
-        document.getElementById('login-form').style.display = 'block';
-        document.getElementById('app-container').style.display = 'none';
+        ui.hideDisplayContent('#login-form', '#app-container');
       }
     });
-  }
+  };
 
   this.showAuthForm = () => {
     const signInBtn = document.querySelector('#link-to-sign-in');
     const signUpBtn = document.querySelector('#link-to-sign-up');
+    const ui = new UI();
     signInBtn.addEventListener('click', () => {
-      document.querySelector('.login-in-form').style.display = 'block';
-      document.querySelector('.sign-up-form').style.display = 'none';
+      ui.hideDisplayContent('.login-in-form', '.sign-up-form');
     });
     signUpBtn.addEventListener('click', () => {
-      document.querySelector('.login-in-form').style.display = 'none';
-      document.querySelector('.sign-up-form').style.display = 'block';
+      ui.hideDisplayContent('.sign-up-form', '.login-in-form');
     });
   };
 }
@@ -115,7 +118,14 @@ function stringLength(string, count) {
 }
 
 // UI Constructor
-function UI() { }
+function UI() {
+
+  this.hideDisplayContent = (id1, id2) => {
+    document.querySelector(id1).style.display = 'block';
+    document.querySelector(id2).style.display = 'none';
+  };
+
+}
 
 UI.prototype.displayViewContent = function (arrLinks, clickedLink) {
   let pushedArray = [];
