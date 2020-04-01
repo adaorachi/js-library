@@ -74,7 +74,7 @@ p {
 }
 
 .padded-section {
-  padding: 0.7rem 3rem;
+  padding: 0.7rem 2rem;
 }
 
 .bg-primary-color {
@@ -99,6 +99,11 @@ p {
   }
 }
 
+.aligned-items {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
 
 //Navbar
 .main-container {
@@ -139,52 +144,78 @@ p {
         // background: linear-gradient(135deg,#4bc1d2 0,#4bc1d2 27%,#0096b5 100%);
       }
     }
-    
-    &.navbar-light {
-      border-bottom: 1px solid #eee;
-      height: 3.4rem;
-      padding: 0;
-      background-color: #fff;
+  }
+
+  .navbar-light {
+    border-bottom: 1px solid #eee;
+    height: 3.4rem;
+    padding: 0;
+    background-color: #fff;
+
+    .list-group-item {
       color: #aaa;
-
-      .navbar-dropdown {
-        height: 100%;
-      }
-
-      .search-input {
-        width: 100%;
-        height: 100%;
-        border: none;
-        outline: none;
-        font-size: 1.3rem;
-        padding: 0 1rem;
-      }
-
-      .search-content {
-        width: 90%;
-      }
-
-      .dropdown-icon-search {
-        width: 7%;
-        height: 100%;
-        border-left: 1px solid #eee;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      i {
-        font-size: 1.4rem;
-      }
+      border: none;
     }
-    
-    .navbar-brand {
-      font-family: $font_header2;
-      font-size: 1.8rem;
-      color: #fff;
-      letter-spacing: 1px;
+
+    .small-navbar-brand {
+      background: linear-gradient(to bottom, #019cba, #659abc);
+      font-family: Lobster;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .dropdown-icon-search {
+      border-left: 1px solid #eee;
+      border-right: 1px solid #eee;
+    }
+
+    .navbar-dropdown {
+      height: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      font-size: 1.3rem;
+      padding: 0 1rem;
+    }
+
+    .search-content {
+      width: 100%;
+    }
+
+    .toggle-review-button {
+      cursor: pointer;
+      // position: absolute;
+      // right: 10px;
+      // top: 10px;
+    }
+
+    i {
+      font-size: 1.4rem;
     }
   }
+  
+  .navbar-brand {
+    font-family: $font_header2;
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .last-column {
+    width: 25%;
+    transition: all 650ms ease-out;
+
+    &.close-review {
+      width: 0;
+    }
+
+  }
+
 
   .list-group-item {
     background-color: transparent;
@@ -194,7 +225,7 @@ p {
   .tab-section {
     background-color: #404040;
     position: fixed;
-    width: 16.67%;
+    width: 16.7%;
 
     .book-icon {
       font-size: 1.5rem;
@@ -234,10 +265,6 @@ p {
 
   .main-view-content {
 
-    .add-a-book {
-      width: 65%;
-    }
-
     .form-group {
       label,
       .label {
@@ -259,12 +286,18 @@ p {
     
     .discover{
       .top-reads {
-
+        img {
+          width: 100px;
+        }
         .carousel {
+
+          .owl-nav {
+            display: block;
+          }
         
-          .carousel-control-prev-icon,
-          .carousel-control-next-icon {
-            background: #449abb;
+          .owl-prev,
+          .owl-next {
+            background: #4499bbab;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -272,24 +305,22 @@ p {
             justify-content: center;
             align-items: center;
             font-size: 1.5rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            &:hover {
+              background-color: #449abb;
+            }
           }
 
-          .gutters {
-            padding-right: 4px;
-            padding-left: 4px;
+          .owl-next {
+            right: 0;
           }
 
-          .carousel-inner {
-            height: 250px;
-          }
-          .carousel-item {
-              height: 100%;
-              width: 100%;
-
-              .row {
-                height: 100%;
-                width: 100%;
-              }
+         
+          .items {
+            height: 230px;
           
             .item {
               background-color: #ecb8d5;
@@ -344,11 +375,10 @@ p {
 
     .recent-added,
     .all-books,
-    .favourite-reads {
+    .favourite-reads,
+    .managed-reads {
 
       .managed-item {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
 
         .managed-content {
           position: relative;
@@ -374,8 +404,8 @@ p {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 35%;
-            height: 35%;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             background: #259bbb99;
             color: #fff;
@@ -418,7 +448,8 @@ p {
 
       .content {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr) );
+        grid-gap: 15px;
       }
         img {
           width: 130px;
@@ -710,11 +741,11 @@ p {
       }
 
       .read-review {
-        position: fixed;
+        // position: fixed;
         bottom: 0;
         padding: 1rem;
         background: #5c5c5a;
-        width: 25%;
+        // width: 25%;
       }
 
       .review-input {
@@ -795,7 +826,16 @@ p {
     background-color: transparent;
   }
 
+  .gif-loader {
+    width: 30px;
+    margin: 1rem auto;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
+
 
 .modal-content {
   .button-close {
@@ -821,3 +861,66 @@ p {
     }
   }
 }
+
+
+@media screen and (max-width: 992px) {
+  .main-container  { 
+    .section-one {
+      display: none;
+    }
+  
+    .last-column {
+      .feeds-section{
+        top: 0;
+        width: 40%;
+      }
+    }
+  
+    .modal-content {
+      top: 30px;
+    }
+  
+    .small-tab-section {
+      background-color: #404040;
+      position: fixed;
+      bottom: 0;
+      z-index: 1000;
+
+      .list-item-link  {
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .main-container  {
+    .main-view-content {
+      .recent-added,
+      .all-books,
+      .managed-reads {
+
+        h4 {
+          text-align: center;
+        }
+        .content {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr) );
+        }
+        
+      }
+    }
+
+    .last-column {
+      .feeds-section{
+        width: 70%;
+      }
+    }
+
+    .modal-content {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+ 
+}
+

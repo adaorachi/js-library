@@ -59,7 +59,7 @@ p {
 }
 
 .padded-section {
-  padding: 0.7rem 3rem;
+  padding: 0.7rem 2rem;
 }
 
 .bg-primary-color {
@@ -85,6 +85,16 @@ p {
   -webkit-box-shadow: 0 3px 3px #352f2b;
           box-shadow: 0 3px 3px #352f2b;
   color: #eee;
+}
+
+.aligned-items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
 }
 
 .main-container {
@@ -133,19 +143,41 @@ p {
           box-shadow: 1px 3px 3px #352f2b;
 }
 
-.main-container .navbar.navbar-light {
+.main-container .navbar-light {
   border-bottom: 1px solid #eee;
   height: 3.4rem;
   padding: 0;
   background-color: #fff;
-  color: #aaa;
 }
 
-.main-container .navbar.navbar-light .navbar-dropdown {
+.main-container .navbar-light .list-group-item {
+  color: #aaa;
+  border: none;
+}
+
+.main-container .navbar-light .small-navbar-brand {
+  background: -webkit-gradient(linear, left top, left bottom, from(#019cba), to(#659abc));
+  background: linear-gradient(to bottom, #019cba, #659abc);
+  font-family: Lobster;
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-container .navbar-light .dropdown-icon-search {
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+.main-container .navbar-light .navbar-dropdown {
   height: 100%;
 }
 
-.main-container .navbar.navbar-light .search-input {
+.main-container .navbar-light .search-input {
   width: 100%;
   height: 100%;
   border: none;
@@ -154,34 +186,33 @@ p {
   padding: 0 1rem;
 }
 
-.main-container .navbar.navbar-light .search-content {
-  width: 90%;
+.main-container .navbar-light .search-content {
+  width: 100%;
 }
 
-.main-container .navbar.navbar-light .dropdown-icon-search {
-  width: 7%;
-  height: 100%;
-  border-left: 1px solid #eee;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.main-container .navbar-light .toggle-review-button {
+  cursor: pointer;
 }
 
-.main-container .navbar.navbar-light i {
+.main-container .navbar-light i {
   font-size: 1.4rem;
 }
 
-.main-container .navbar .navbar-brand {
+.main-container .navbar-brand {
   font-family: "Lobster", cursive;
   font-size: 1.8rem;
   color: #fff;
   letter-spacing: 1px;
+}
+
+.main-container .last-column {
+  width: 25%;
+  -webkit-transition: all 650ms ease-out;
+  transition: all 650ms ease-out;
+}
+
+.main-container .last-column.close-review {
+  width: 0;
 }
 
 .main-container .list-group-item {
@@ -192,7 +223,7 @@ p {
 .main-container .tab-section {
   background-color: #404040;
   position: fixed;
-  width: 16.67%;
+  width: 16.7%;
 }
 
 .main-container .tab-section .book-icon {
@@ -227,10 +258,6 @@ p {
   color: #ccc;
 }
 
-.main-container .main-view-content .add-a-book {
-  width: 65%;
-}
-
 .main-container .main-view-content .form-group label,
 .main-container .main-view-content .form-group .label {
   color: #555;
@@ -248,9 +275,17 @@ p {
   border: 1px solid #659abc !important;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-control-prev-icon,
-.main-container .main-view-content .discover .top-reads .carousel .carousel-control-next-icon {
-  background: #449abb;
+.main-container .main-view-content .discover .top-reads img {
+  width: 100px;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .owl-nav {
+  display: block;
+}
+
+.main-container .main-view-content .discover .top-reads .carousel .owl-prev,
+.main-container .main-view-content .discover .top-reads .carousel .owl-next {
+  background: #4499bbab;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -264,34 +299,32 @@ p {
       -ms-flex-align: center;
           align-items: center;
   font-size: 1.5rem;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .gutters {
-  padding-right: 4px;
-  padding-left: 4px;
+.main-container .main-view-content .discover .top-reads .carousel .owl-prev:hover,
+.main-container .main-view-content .discover .top-reads .carousel .owl-next:hover {
+  background-color: #449abb;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-inner {
-  height: 250px;
+.main-container .main-view-content .discover .top-reads .carousel .owl-next {
+  right: 0;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item {
-  height: 100%;
-  width: 100%;
+.main-container .main-view-content .discover .top-reads .carousel .items {
+  height: 230px;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item .row {
-  height: 100%;
-  width: 100%;
-}
-
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item {
+.main-container .main-view-content .discover .top-reads .carousel .items .item {
   background-color: #ecb8d5;
   width: 100%;
   height: 80%;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img {
+.main-container .main-view-content .discover .top-reads .carousel .items .item img {
   width: 40%;
   position: absolute;
   top: 20px;
@@ -300,7 +333,7 @@ p {
           box-shadow: 8px 8px 12px -6px black;
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:after, .main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:before {
+.main-container .main-view-content .discover .top-reads .carousel .items .item img:after, .main-container .main-view-content .discover .top-reads .carousel .items .item img:before {
   content: '';
   width: 100%;
   height: 100%;
@@ -314,7 +347,7 @@ p {
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-.main-container .main-view-content .discover .top-reads .carousel .carousel-item .item img:after {
+.main-container .main-view-content .discover .top-reads .carousel .items .item img:after {
   right: 10px;
   -webkit-transform: skew(8deg) rotate(3deg);
           transform: skew(8deg) rotate(3deg);
@@ -333,24 +366,17 @@ p {
   grid-gap: 3rem 1rem;
 }
 
-.main-container .main-view-content .recent-added .managed-item,
-.main-container .main-view-content .all-books .managed-item,
-.main-container .main-view-content .favourite-reads .managed-item {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[5];
-      grid-template-columns: repeat(5, 1fr);
-}
-
 .main-container .main-view-content .recent-added .managed-item .managed-content,
 .main-container .main-view-content .all-books .managed-item .managed-content,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content,
+.main-container .main-view-content .managed-reads .managed-item .managed-content {
   position: relative;
 }
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .delete-icon,
 .main-container .main-view-content .all-books .managed-item .managed-content .delete-icon,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .delete-icon {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .delete-icon,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .delete-icon {
   position: absolute;
   top: -9px;
   right: 30px;
@@ -359,7 +385,8 @@ p {
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .hovered-content,
 .main-container .main-view-content .all-books .managed-item .managed-content .hovered-content,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .hovered-content {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .hovered-content,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .hovered-content {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -377,7 +404,8 @@ p {
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .cover,
 .main-container .main-view-content .all-books .managed-item .managed-content .cover,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .cover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -388,8 +416,8 @@ p {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 35%;
-  height: 35%;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   background: #259bbb99;
   color: #fff;
@@ -401,19 +429,22 @@ p {
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .cover:hover,
 .main-container .main-view-content .all-books .managed-item .managed-content .cover:hover,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover:hover {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover:hover,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .cover:hover {
   background: #259abbe7;
 }
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .cover-unhover,
 .main-container .main-view-content .all-books .managed-item .managed-content .cover-unhover,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-unhover {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-unhover,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .cover-unhover {
   opacity: 0;
 }
 
 .main-container .main-view-content .recent-added .managed-item .managed-content .cover-hover,
 .main-container .main-view-content .all-books .managed-item .managed-content .cover-hover,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-hover {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content .cover-hover,
+.main-container .main-view-content .managed-reads .managed-item .managed-content .cover-hover {
   opacity: 1;
   -webkit-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
@@ -453,22 +484,26 @@ p {
 
 .main-container .main-view-content .recent-added .managed-item .managed-content:hover .cover,
 .main-container .main-view-content .all-books .managed-item .managed-content:hover .cover,
-.main-container .main-view-content .favourite-reads .managed-item .managed-content:hover .cover {
+.main-container .main-view-content .favourite-reads .managed-item .managed-content:hover .cover,
+.main-container .main-view-content .managed-reads .managed-item .managed-content:hover .cover {
   opacity: 1;
 }
 
 .main-container .main-view-content .recent-added .content,
 .main-container .main-view-content .all-books .content,
-.main-container .main-view-content .favourite-reads .content {
+.main-container .main-view-content .favourite-reads .content,
+.main-container .main-view-content .managed-reads .content {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 15px;
 }
 
 .main-container .main-view-content .recent-added img,
 .main-container .main-view-content .all-books img,
-.main-container .main-view-content .favourite-reads img {
+.main-container .main-view-content .favourite-reads img,
+.main-container .main-view-content .managed-reads img {
   width: 130px;
   height: 200px;
   position: relative;
@@ -477,13 +512,15 @@ p {
 
 .main-container .main-view-content .recent-added .item-image,
 .main-container .main-view-content .all-books .item-image,
-.main-container .main-view-content .favourite-reads .item-image {
+.main-container .main-view-content .favourite-reads .item-image,
+.main-container .main-view-content .managed-reads .item-image {
   position: relative;
 }
 
 .main-container .main-view-content .recent-added .item-image:hover .img,
 .main-container .main-view-content .all-books .item-image:hover .img,
-.main-container .main-view-content .favourite-reads .item-image:hover .img {
+.main-container .main-view-content .favourite-reads .item-image:hover .img,
+.main-container .main-view-content .managed-reads .item-image:hover .img {
   -webkit-box-shadow: 8px 8px 12px -6px black;
           box-shadow: 8px 8px 12px -6px black;
   top: -2px;
@@ -493,7 +530,8 @@ p {
 
 .main-container .main-view-content .recent-added .item-image .book-icons,
 .main-container .main-view-content .all-books .item-image .book-icons,
-.main-container .main-view-content .favourite-reads .item-image .book-icons {
+.main-container .main-view-content .favourite-reads .item-image .book-icons,
+.main-container .main-view-content .managed-reads .item-image .book-icons {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -512,7 +550,8 @@ p {
 
 .main-container .main-view-content .recent-added .item-image .book-icons span,
 .main-container .main-view-content .all-books .item-image .book-icons span,
-.main-container .main-view-content .favourite-reads .item-image .book-icons span {
+.main-container .main-view-content .favourite-reads .item-image .book-icons span,
+.main-container .main-view-content .managed-reads .item-image .book-icons span {
   color: #fff;
   background: #019cba;
   padding: 0 0.2rem;
@@ -524,7 +563,8 @@ p {
 
 .main-container .main-view-content .recent-added .item-image:hover .book-icons,
 .main-container .main-view-content .all-books .item-image:hover .book-icons,
-.main-container .main-view-content .favourite-reads .item-image:hover .book-icons {
+.main-container .main-view-content .favourite-reads .item-image:hover .book-icons,
+.main-container .main-view-content .managed-reads .item-image:hover .book-icons {
   opacity: 1;
   -webkit-transition: all 650ms;
   transition: all 650ms;
@@ -532,13 +572,15 @@ p {
 
 .main-container .main-view-content .recent-added .favourite-icon.liked-reads,
 .main-container .main-view-content .all-books .favourite-icon.liked-reads,
-.main-container .main-view-content .favourite-reads .favourite-icon.liked-reads {
+.main-container .main-view-content .favourite-reads .favourite-icon.liked-reads,
+.main-container .main-view-content .managed-reads .favourite-icon.liked-reads {
   color: #e01f1f !important;
 }
 
 .main-container .main-view-content .recent-added .bookmark-icon.booked-reads,
 .main-container .main-view-content .all-books .bookmark-icon.booked-reads,
-.main-container .main-view-content .favourite-reads .bookmark-icon.booked-reads {
+.main-container .main-view-content .favourite-reads .bookmark-icon.booked-reads,
+.main-container .main-view-content .managed-reads .bookmark-icon.booked-reads {
   color: #019cba;
   background: -webkit-gradient(linear, left bottom, left top, from(#019cba), to(#aeb0dd));
   background: linear-gradient(to top, #019cba, #aeb0dd);
@@ -796,11 +838,9 @@ p {
 }
 
 .main-container .feeds-section .review-content .read-review {
-  position: fixed;
   bottom: 0;
   padding: 1rem;
   background: #5c5c5a;
-  width: 25%;
 }
 
 .main-container .feeds-section .review-content .review-input {
@@ -879,6 +919,18 @@ p {
   background-color: transparent;
 }
 
+.main-container .gif-loader {
+  width: 30px;
+  margin: 1rem auto;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .modal-content .button-close {
   position: absolute;
   top: -25px;
@@ -900,5 +952,48 @@ p {
 .modal-content .info h6 {
   font-size: 1.2rem;
   font-weight: bolder;
+}
+
+@media screen and (max-width: 992px) {
+  .main-container .section-one {
+    display: none;
+  }
+  .main-container .last-column .feeds-section {
+    top: 0;
+    width: 40%;
+  }
+  .main-container .modal-content {
+    top: 30px;
+  }
+  .main-container .small-tab-section {
+    background-color: #404040;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+  }
+  .main-container .small-tab-section .list-item-link {
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .main-container .main-view-content .recent-added h4,
+  .main-container .main-view-content .all-books h4,
+  .main-container .main-view-content .managed-reads h4 {
+    text-align: center;
+  }
+  .main-container .main-view-content .recent-added .content,
+  .main-container .main-view-content .all-books .content,
+  .main-container .main-view-content .managed-reads .content {
+    -ms-grid-columns: (minmax(120px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  .main-container .last-column .feeds-section {
+    width: 70%;
+  }
+  .main-container .modal-content {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 /*# sourceMappingURL=style.css.map */
