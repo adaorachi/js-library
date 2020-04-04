@@ -151,21 +151,23 @@
               </ul>
             </nav>
             <div class="app-links" id="app-links">
-              <li class="list-group-item">
-                <div class="user-profile">
+              <li class="list-group-item list-item get-link p-3" data-target="my-profile">
+                <a class="list-item-link" href="#">
+                  <span class="user-profile">
 
-                </div>
+                  </span>
+                </a>
               </li>
               <ul class="list-group list-group-flush tab-link-contents scroll-bar">
                 <li class="list-group-item">
                   <ul>
                     <li class="list-item title">Browse</li>
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="top-books">
+                    <li class="list-item get-link" data-target="top-books">
+                      <a class="list-item-link" href="#">
                         <i class="fas fa-book mr-3"></i>Manage Books</a>
                     </li>
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="discover">
+                    <li class="list-item get-link" data-target="discover">
+                      <a class="list-item-link" href="#">
                         <i class="fab fa-discourse mr-3"></i>Discover</a>
                     </li>
                     <li class="list-item">
@@ -180,7 +182,6 @@
                         proident.
                       </div>
                     </div>
-
                   </ul>
                 </li>
                 <li class="list-group-item">
@@ -199,12 +200,12 @@
                         proident.
                       </div>
                     </div>
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="add-a-book">
+                    <li class="list-item get-link" data-target="add-a-book">
+                      <a class="list-item-link" href="#">
                         <i class="fas fa-plus-circle mr-3"></i>Add a Book</a>
                     </li>
-                    <li class="list-item">
-                      <a class="list-item-link get-link button" href="#" data-target="create-a-shelf">
+                    <li class="list-item get-link">
+                      <a class="list-item-link button" href="#">
                         </i>Create a Shelf</a>
                     </li>
 
@@ -213,17 +214,17 @@
                 <li class="list-group-item">
                   <ul>
                     <li class="list-item title">Your Books</li>
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="now-reading">
+                    <li class="list-item get-link" data-target="now-reading">
+                      <a class="list-item-link" href="#">
                         <i class="fas fa-book-open mr-3"></i>Now Reading</a>
                     </li>
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="favourite-reads">
+                    <li class="list-item get-link" data-target="favourite-reads">
+                      <a class="list-item-link" href="#">
                         <i class="fab fa-readme mr-3"></i>Favourite Reads</a>
                     </li>
 
-                    <li class="list-item">
-                      <a class="list-item-link get-link" href="#" data-target="bookmarks">
+                    <li class="list-item get-link" data-target="bookmarks">
+                      <a class="list-item-link" href="#">
                         <i class="fas fa-bookmark mr-3"></i>Bookmarks</a>
                     </li>
                     <li class="list-item">
@@ -272,13 +273,39 @@
             </nav>
 
             <div class="main-view-content">
+              <div class="my-profile padded-section" id="my-profile" style="display: none">
+                <form action="">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="text-center mb-0">Update Profile</h4>
+
+
+                      <div class="input-group mb-3 profile-content">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text p-0 profile-pic" id="profile-pic">
+                            <div id="display-prof-img" class="display-prof-img"></div>
+                            <input type="file" id="profile-image" class="profile-image file-input form-control">
+                          </div>
+                        </div>
+                        <input type="text" class="form-control profile-username" id="profile-username"
+                          placeholder="Username">
+                        <div class="input-group-append">
+                          <button type="button" class="input-group-text update-profile-btn"
+                            id="update-profile-btn">Update Profile</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
               <div class="add-a-book padded-section" id="add-a-book" style="display: none">
                 <form id="addBookListForm">
+                  <h4 class="text-center mb-0 mb-sm-3">Add a Book</h4>
                   <div class="row no-gutters">
-                    <div class="col-3 pr-3">
+                    <div class="col-12 col-sm-3 pr-sm-3 py-3 py-sm-0">
                       <div class="book-cover-image" id="book-cover">
                         <div id="display-img" class="display-img"></div>
-                        <input type="file" name="" id="book-image" class="book-image file-input form-control"
+                        <input type="file" id="book-image" class="book-image file-input form-control"
                           data-key="book_image">
                         <div id="drop_zone" class="drop-zone d-flex flex-column">
                           <i class="fas fa-image"></i>
@@ -287,10 +314,10 @@
                         <span id="msg-book_image" class="text-danger"></span>
                       </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-12 col-sm-9">
                       <div class="card">
                         <div class="card-body">
-                          <h4 class="text-center">Add a Book</h4>
+
                           <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" data-key="title" id="title">
@@ -302,26 +329,29 @@
                             <span id="msg-author" class="text-danger"></span>
                           </div>
                           <div class="row">
-                            <div class="col-7">
+                            <div class="col-12 col-sm-6 col-md-7">
                               <div class="form-group">
                                 <label for="num">Number of Pages</label>
                                 <input type="number" class="form-control" data-key="num" id="num">
                                 <span id="msg-num" class="text-danger"></span>
                               </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-12 col-sm-6 col-md-5">
                               <div class="form-group">
                                 <div class="label mb-2">Status</div>
-                                <label class="switch">
-                                  <input type="checkbox" id="read" data-key="read" class="form-control">
-                                  <span class="slider round"></span>
-                                </label>
+                                <div class="d-flex">
+                                  <label class="switch">
+                                    <input type="checkbox" id="read" data-key="read" class="form-control">
+                                    <span class="slider round"></span>
+                                  </label> &nbsp;
+                                  <span class="read-text unread-status" id="read-text">Unread</span>
+                                </div>
                               </div>
                             </div>
                           </div>
 
                           <div class="row">
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                               <div class="form-group">
                                 <label for="genre">Select a Genre</label>
                                 <select class="form-control" id="genre" data-key="genre">
@@ -334,7 +364,7 @@
                                 <span id="msg-genre" class="text-danger"></span>
                               </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                               <div class="form-group">
                                 <label for="shelf">Select a Shelf</label>
                                 <select class="form-control" id="shelf" data-key="shelf">
@@ -349,7 +379,7 @@
                           <div class="form-group">
                             <label for="description">Descritpion</label>
                             <textarea name="" data-key="description" id="description" cols="20" rows="5"
-                              class="form-control" placeholder="Write a short description about your book"></textarea>
+                              class="form-control" placeholder="A short description about your book!"></textarea>
                             <span id="msg-description" class="text-danger"></span>
                           </div>
                           <div class="form-group">
@@ -388,101 +418,21 @@
                   <section class="top-reads padded-section">
                     <div class="carousel slide">
                       <h4>Top Reads</h4>
+                      <div class="slide-content">
+                        <div class="slideshow d-flex" id="slideshow">
 
-                      <div class="owl-carousel">
-                        <div class="items">
-                          <div class="item" style="background: #ecb8d5">
-                            <img class="img-fluid"
-                              src="https://bookcoverexpress.com/wp-content/uploads/2016/03/mirrorlarge.jpg"
-                              alt="book-cover" />
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-6 mt-3">
-                                  <h5 class="">The Avengers of...</h5>
-                                  <small>By MaryAnn Chukwuka</small>
-                                  <small>200 votes</small>
-
-                                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...
-                                  </p>
-                                  <a href="#" class="button">See the book</a>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="items">
-                          <div class="item" style="background: #fbadaf">
-                            <img class="img-fluid"
-                              src="https://bookcoverexpress.com/wp-content/uploads/2016/03/mirrorlarge.jpg"
-                              alt="book-cover" />
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-6 mt-3 text-white">
-                                  <h5 class="">The Avengers</h5>
-                                  <small>By MaryAnn Chukwuka</small>
-                                  <small>200 votes</small>
-
-                                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                  </p>
-                                  <a href="#" class="button">See the book</a>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="items">
-                          <div class="item" style="background: #93d5e3">
-                            <img class="img-fluid"
-                              src="https://images.randomhouse.com/cover/9780525534105?alt=no_cover_penguin.jpg"
-                              alt="book-cover" />
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-6 mt-3">
-                                  <h5 class="">The Avengers</h5>
-                                  <small>By MaryAnn Chukwuka</small>
-                                  <small>200 votes</small>
-
-                                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                  </p>
-                                  <a href="#" class="button">See the book</a>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="items">
-                          <div class="item" style="background: #244779">
-                            <img class="img-fluid"
-                              src="https://panmacmillanapi.blob.core.windows.net/pmapi/e12a8195-4610-4b2d-fa9f-08d58e45775c/editions/eace61f0-5b12-4274-f00b-08d757553368/original_400_400.jpg"
-                              alt="book-cover" />
-                            <div class="info">
-                              <div class="row">
-                                <div class="col-6"></div>
-                                <div class="col-6 mt-3 text-white">
-                                  <h5 class="">The Avengers</h5>
-                                  <small>By MaryAnn Chukwuka</small>
-                                  <small>200 votes</small>
-
-                                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                  </p>
-                                  <a href="#" class="button">See the book</a>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
                         </div>
                       </div>
 
+                      <div class="slideshow-button">
+                        <span class="fas fa-chevron-left text-white slide-prev slidebtn" id="slide-prev"
+                          data-slide="-1">
+                        </span>
+                        <span class="fas fa-chevron-right text-white slide-next slidebtn" id="slide-next"
+                          data-slide="1">
+                          <i class=""></i>
+                        </span>
+                      </div>
                     </div>
                   </section>
 
@@ -550,6 +500,29 @@
                   <section class="all-books mt-4">
                     <div class="padded-section">
                       <h4>All Books</h4>
+                      <div class="input-group sort-book">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="sort-book">
+                            <i class="fas fa-sort"></i>
+                          </label>
+                        </div>
+                        <select class="custom-select sort-button-group" id="sort-book">
+                          <option selected>Filter</option>
+                          <option value="title">Title</option>
+                          <option value="votes">Most Popular</option>
+                          <option value="created_at">Recent Added</option>
+                        </select>
+                      </div>
+
+                      <div class="button-group filters-button-group p-3">
+                        <ul class="list-group list-group-horizontal">
+                          <li class="list-group-item active" id="item" data-filter="item">All Genres</li>
+                          <li class="list-group-item" id="romance" data-filter="romance">Romance</li>
+                          <li class="list-group-item" id="adventure" data-filter="adventure">Adventure</li>
+                          <li class="list-group-item" id="fanfiction" data-filter="adventure">Fan-Fiction</li>
+                          <li class="list-group-item" id="thriller" data-filter="adventure">Thriller</li>
+                        </ul>
+                      </div>
                       <div class="content">
                       </div>
                     </div>
@@ -573,18 +546,6 @@
                         </div>
                       </form>
                     </div>
-                    <!-- <div class="col-6">
-                      <div class="row align-items-center">
-                        <div class="col-4">
-                          <div id="current-read-content" class="current-read-content">
-                          </div>
-                        </div>
-                        <div class="col-8">
-                          <div id="current-read-page" class="current-read-page">
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
                   </div>
 
                 </div>
@@ -601,7 +562,6 @@
                   </section>
                 </div>
               </div>
-
               <div class="bookmarks" id="bookmarks" style="display: none">
                 <div class="card-books">
                   <section class="bookmarks padded-section">
@@ -618,7 +578,7 @@
           </div>
         </div>
         <div class="last-column" id="last-column">
-          <section class="position-fixed feeds-section">
+          <section class="position-fixed w-25 feeds-section">
             <div class="feeds-content">
               <div class="currently-reading">
                 <!-- <div class="toggle-review-button" id="toggle-review-button">
@@ -680,7 +640,6 @@
                       <input type="text" id="review-title" class="review-input w-100 mb-3" placeholder="Review Title">
                       <textarea class="review-input scroll-bar w-100" id="review-comment"
                         placeholder="Write a review"></textarea>
-                      <div class="hidden-id"></div>
                     </div>
                     <div class="col-2">
                       <button type="submit" class="review-btn" id="add-review-btn">
@@ -691,6 +650,7 @@
 
                   <!-- <input type="text" class="review-input" placeholder="Write a review"> -->
                 </div>
+                <div class="hidden-id"></div>
               </div>
             </div>
           </section>
@@ -760,10 +720,13 @@
                       <div class="col-5">
                         <div class="form-group">
                           <div class="label mb-2">Status</div>
-                          <label class="switch">
-                            <input type="checkbox" id="edit-read" data-key="read" class="form-control">
-                            <span class="slider round"></span>
-                          </label>
+                          <div class="d-flex">
+                            <label class="switch">
+                              <input type="checkbox" id="edit-read" data-key="read" class="form-control">
+                              <span class="slider round"></span>
+                            </label> &nbsp;
+                            <span class="read-text" id="edit-read-text"></span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -819,6 +782,7 @@
 
   </main>
 
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
@@ -829,11 +793,12 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
-  <script src="js/app.js" type="module"></script>
+  <script src="src/index.js"></script>
 </body>
 
 </html>
