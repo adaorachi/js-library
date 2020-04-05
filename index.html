@@ -151,7 +151,7 @@
               </ul>
             </nav>
             <div class="app-links" id="app-links">
-              <li class="list-group-item list-item get-link p-3" data-target="my-profile">
+              <li class="list-group-item list-item get-link p-3 my-profile" data-target="my-profile">
                 <a class="list-item-link" href="#">
                   <span class="user-profile">
 
@@ -170,45 +170,14 @@
                       <a class="list-item-link" href="#">
                         <i class="fab fa-discourse mr-3"></i>Discover</a>
                     </li>
-                    <li class="list-item">
-                      <a class="list-item-link" data-toggle="collapse" href="#collapseGenre" role="button"
-                        aria-expanded="false" aria-controls="collapseGenre">
-                        <i class="fas fa-th-list mr-3"></i>Genre <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                    </li>
-                    <div class="collapse" id="collapseGenre">
-                      <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                        proident.
-                      </div>
-                    </div>
                   </ul>
                 </li>
                 <li class="list-group-item">
                   <ul>
-                    <li class="list-item title">Shelves</li>
-                    <li class="list-item">
-                      <a class="list-item-link" data-toggle="collapse" href="#collapseShelf" role="button"
-                        aria-expanded="false" aria-controls="collapseShelf">
-                        <i class="fas fa-box mr-3"></i>Your Shelves <i
-                          class="fas fa-chevron-down dropdown-icon"></i></a>
-                    </li>
-                    <div class="collapse" id="collapseShelf">
-                      <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                        proident.
-                      </div>
-                    </div>
                     <li class="list-item get-link" data-target="add-a-book">
                       <a class="list-item-link" href="#">
                         <i class="fas fa-plus-circle mr-3"></i>Add a Book</a>
                     </li>
-                    <li class="list-item get-link">
-                      <a class="list-item-link button" href="#">
-                        </i>Create a Shelf</a>
-                    </li>
-
                   </ul>
                 </li>
                 <li class="list-group-item">
@@ -232,6 +201,14 @@
                         <i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
                     </li>
                   </ul>
+                </li>
+              </ul>
+              <ul class="list-group list-group-flush libb-of-week">
+                <li class="list-group-item title header">Librarian of the week</li>
+                <li class="list-group-item">
+                  <i class="fas fa-user-tie"></i>
+                  <i class="fas fa-trophy"></i> &nbsp;
+                  <span class="person" id="libb-of-week-user"></span>
                 </li>
               </ul>
             </div>
@@ -271,7 +248,9 @@
 
               </ul>
             </nav>
+            <div class="message-content" id="message-content">
 
+            </div>
             <div class="main-view-content">
               <div class="my-profile padded-section" id="my-profile" style="display: none">
                 <form action="">
@@ -405,8 +384,25 @@
                   <section class="managed-reads padded-section">
                     <h4>Manage Books</h4>
                     <div class="managed-item" id="managed-books">
-                      <div class="content">
-
+                      <ul class="nav nav-tabs list-group" id="myTab" role="tablist">
+                        <li class="nav-item list-group-item">
+                          <a class="nav-link active" id="your-collection-tab" data-toggle="tab" href="#your-collection"
+                            role="tab">Your Collections</a>
+                        </li>
+                        <li class="nav-item list-group-item">
+                          <a class="nav-link" id="other-collection-tab" data-toggle="tab" href="#other-collection"
+                            role="tab">Other Collections</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content mt-4" id="myTabContent">
+                        <div class="tab-pane fade show active" id="your-collection" role="tabpanel">
+                          <div class="content">
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="other-collection" role="tabpanel">
+                          <div class="content">
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -544,6 +540,7 @@
                           <label for="current-page">Input current page number.</label>
                           <input type="number" id="current-page" class="form-control" min="1" max="999">
                         </div>
+                        <button type="button" class="button save-current-read" id="save-current-read">Save</button>
                       </form>
                     </div>
                   </div>
@@ -577,6 +574,7 @@
             </div>
           </div>
         </div>
+
         <div class="last-column" id="last-column">
           <section class="position-fixed w-25 feeds-section">
             <div class="feeds-content">
@@ -588,18 +586,7 @@
                   <li class="list-group-item">
                     <p class="m-0">Currently Reading</p>
                   </li>
-                  <li class="list-group-item">
-                    <div class="row no-gutters">
-                      <div class="col-10">
-                        <h2 id="currently-reading-title">The Blade Witch</h2>
-                        <small id="currently-reading-author">By Nygel Oglesby</small>
-                      </div>
-                      <div class="col-2">
-                        <div id="current-read-image" class="current-read-image">
-
-                        </div>
-                      </div>
-                    </div>
+                  <li class="list-group-item" id="set-current-read">
 
                   </li>
                 </ul>
@@ -607,13 +594,13 @@
               <div class="current-progress-info row no-gutters">
                 <div class="col-2">
                   <div class="progress-percentage" id="progress-percentage">
-                    <span id="progress-percentage-info">34%</span>
+                    <span id="progress-percentage-info">0%</span>
                   </div>
                 </div>
                 <div class="progress-bar-content col">
                   <div class="progress">
                     <div class="progress-bar bg-primary-color" id="progress-bar-book" role="progressbar"
-                      style="width: 20%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                      style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <span class="exceed-page-msg"></span>
                 </div>

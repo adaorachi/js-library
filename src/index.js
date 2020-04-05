@@ -1,3 +1,6 @@
+/* eslint-disable no-use-before-define */
+/* global firebase,  */
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDE9O_Vdf00nik85EupWYgHorTDKgmqmes',
   authDomain: 'my-library-project-8cc42.firebaseapp.com',
@@ -21,25 +24,21 @@ function Auth() {
 
       firebase.auth().createUserWithEmailAndPassword(emailAdd.value, password.value).then(() => {
         const user = firebase.auth().currentUser;
-        user.updateProfile({
-          displayName: emailAdd.value.split('@')[0],
-          photoURL: 'https://cdn.wpbeginner.com/wp-content/uploads/2012/08/gravatarlogo.jpg',
-        }).then(() => {
-          const [email, username, favouriteBooks, bookmarkBooks, readBooks, currentRead] = [user.email, user.email.split('@')[0], '0', '0', '0', '0'];
-          const userInfo = {
-            email,
-            username,
-            favouriteBooks,
-            bookmarkBooks,
-            readBooks,
-            currentRead,
-          };
-          firebase.database().ref(`users/${user.uid}`).push(userInfo);
-          // location.reload();
-        }).catch(() => {
-        });
-
+        const [email, username, favouriteBooks, bookmarkBooks, readBooks, currentRead] = [user.email, user.email.split('@')[0], '0', '0', { book_id: '0', book_page: '0' }, '0'];
+        const userInfo = {
+          email,
+          username,
+          favouriteBooks,
+          bookmarkBooks,
+          readBooks,
+          currentRead,
+        };
+        firebase.database().ref(`users/${user.uid}`).push(userInfo);
+        // location.reload();
         document.getElementById('sign-up-form-content').reset();
+        const ui = new UI();
+        ui.displayMessage(`Welcome ${username}, you are now a Libb member!`);
+
       }).catch((error) => {
         document.getElementById('signup-error-msg').innerText = error.message;
       });
@@ -50,7 +49,13 @@ function Auth() {
 
   this.signOut = () => {
     function signUserOut() {
-      firebase.auth().signOut();
+      firebase.auth().signOut().then(() => {
+        window.localStorage.setItem('page_link', 'discover');
+        const ui = new UI();
+        ui.displayViewContent('#app-links .get-link', 'discover');
+      }).catch((error) => {
+        console.log(error);
+      });
     }
     const logoutBtn = document.getElementById('logout-btn');
     logoutBtn.addEventListener('click', signUserOut);
@@ -62,10 +67,21 @@ function Auth() {
 
       firebase.auth().signInWithEmailAndPassword(loginEmail.value, loginPassword.value).then(() => {
         document.getElementById('sign-in-form-content').reset();
-        // location.reload();
+        const user = firebase.auth().currentUser;
+        firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
+          snap.forEach((snapShot) => {
+            const userProfile = snapShot.val();
+            // location.reload()
+            const ui = new UI();
+            ui.displayMessage(`Welcome back ${userProfile.username}`);
+          });
+        });
       })
         .catch((error) => {
-          document.getElementById('login-error-msg').innerText = error.message;
+          document.getElementById('login-error-msg').innerHTML = `<p class="login-error-msg text-danger">${error.message}</p>`;
+          setTimeout(() => {
+            document.querySelector('.login-error-msg').remove();
+          }, 5000);
         });
     }
 
@@ -77,7 +93,6 @@ function Auth() {
     const ui = new UI();
 
     firebase.auth().onAuthStateChanged((user) => {
-      // const user = firebase.auth().currentUser;
       if (user !== null) {
         firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
           snap.forEach((snapShot) => {
@@ -85,8 +100,8 @@ function Auth() {
             document.querySelector('.user-profile').innerHTML = `
             <img src="${userProf.photoURL}" alt="Profile Image">
             <span class="username ml-3">${userProf.username.toUpperCase()}</span>`;
-          })
-        })
+          });
+        });
         ui.hideDisplayContent('app-container', 'login-form');
       } else {
         ui.hideDisplayContent('login-form', 'app-container');
@@ -139,17 +154,19 @@ function Book() {
         uploadImage.on('state_changed', (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           document.querySelector('.gif-loader').style.display = 'flex';
-          document.querySelector('.upload-percent').innerText = `${parseInt(progress)}%...`;
+          document.querySelector('.upload-percent').innerText = `${parseInt(progress, 10)}%...`;
         }, (error) => {
           // eslint-disable-next-line no-console
           console.log(error.message);
         }, () => {
           uploadImage.snapshot.ref.getDownloadURL().then((downloadURL) => {
             const helpers = new HelperMethod();
+            const user = firebase.auth().currentUser;
             addedBookValue.book_image = downloadURL;
             addedBookValue.votes = 0;
             addedBookValue.reviewers = '0';
             addedBookValue.created_at = helpers.getDate();
+            addedBookValue.added_by = user.uid;
 
             const bookListsRef = dbRef.child('addbook');
             bookListsRef.push(addedBookValue, () => {
@@ -224,7 +241,8 @@ function Book() {
   this.addAllBooksToDOM = (sorted) => {
     firebase.database().ref('addbook').once('value', (snapshot) => {
       const addBookToContent = document.querySelector('.all-books .content');
-      const addManagedBookToContent = document.querySelector('#managed-books .content');
+      const addManagedBookToYourContent = document.querySelector('#managed-books #your-collection .content');
+      const addManagedBookToOtherContent = document.querySelector('#managed-books #other-collection .content');
       const addTopBookToContent = document.querySelector('.top-reads #slideshow');
 
       const pushArrAll = this.getAllBooksFromStore(snapshot);
@@ -311,7 +329,7 @@ function Book() {
             });
 
             pushArrManaged.forEach((item) => {
-              const nodeManaged = document.createElement('div');
+              let nodeManaged = document.createElement('div');
               let readIcons; let checkIcon; let readStatus;
               if (readReads.split(',').indexOf(item.uid) >= 0) {
                 readIcons = 'cover cover-hover';
@@ -322,23 +340,42 @@ function Book() {
                 checkIcon = '';
                 readStatus = 'Unread';
               }
-              nodeManaged.classList = 'managed-content text-center';
-              nodeManaged.innerHTML = `
-                      <div class= "position-relative">
-                      <img class="img-fluid cover-img"
-                        src="${item.book_image}"
-                        alt="book-cover" />
-                      <div class="hovered-content">
-                        <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
-                      </div>
-                  </div >
-                        <div class="managed-icons">
-                          <i class="fas fa-edit color-primary edit-icon" data-toggle="modal" data-target="#editBookModalLong" data-id="${item.uid}"></i>
-                          <i class="fas fa-times-circle text-danger delete-icon" data-delete="${item.uid}" id="delete-book-${item.id}"></i>
-                        </div>
-                        <h5>${item.title}</h5>`;
 
-              addManagedBookToContent.appendChild(nodeManaged);
+              let addIfUser = `
+              <div class="managed-icons">
+                <i class="fas fa-edit color-primary edit-icon" data-toggle="modal" data-target="#editBookModalLong" data-id="${item.uid}"></i>
+                <i class="fas fa-times-circle text-danger delete-icon" data-delete="${item.uid}" id="delete-book-${item.id}"></i>
+              </div>`;
+
+              nodeManaged.classList = 'managed-content text-center';
+              if (userId.uid == item.added_by) {
+                nodeManaged.innerHTML = `
+                  <div class= "position-relative">
+                    <img class="img-fluid cover-img"
+                      src="${item.book_image}"
+                      alt="book-cover" />
+                    <div class="hovered-content">
+                      <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
+                    </div>
+                  </div>
+                  ${addIfUser}
+                  <h5>${item.title}</h5>`;
+                addManagedBookToYourContent.append(nodeManaged);
+
+              } else {
+                nodeManaged.innerHTML = `
+                  <div class= "position-relative">
+                    <img class="img-fluid cover-img"
+                      src="${item.book_image}"
+                      alt="book-cover" />
+                    <div class="hovered-content">
+                      <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
+                    </div>
+                  </div>
+                  <h5>${item.title}</h5>`;
+                addManagedBookToOtherContent.append(nodeManaged);
+              }
+
             });
 
             const ui = new UI();
@@ -629,34 +666,44 @@ function Book() {
     });
   };
 
-  this.updateCurrentRead = () => {
+  this.saveCurrentReadToStore = () => {
     firebase.database().ref('addbook').once('value', (snapshot) => {
       const pushArr = this.getAllBooksFromStore(snapshot);
       const currentReadSelect = document.getElementById('current-read');
 
-      let book_titles = '<option value="" disabled selected>Current Read</option>';
+      let bookTitle = '<option value="" disabled selected>Current Read</option>';
       pushArr.forEach((item) => {
-        book_titles += `<option value = "${item.uid}" > ${item.title}</option>`;
+        bookTitle += `<option value="${item.uid}"> ${item.title}</option>`;
       });
-      currentReadSelect.innerHTML = book_titles;
+      currentReadSelect.innerHTML = bookTitle;
 
-      let selected_read;
-
-      currentReadSelect.addEventListener('change', function () {
+      let selectedRead;
+      currentReadSelect.addEventListener('change', () => {
         const options = currentReadSelect.options[currentReadSelect.selectedIndex].value;
-        selected_read = pushArr.filter((item) => item.uid === options);
+        const helper = new HelperMethod();
 
-        document.querySelector('#currently-reading-title').innerText = `${selected_read[0].title}`;
-        document.querySelector('#currently-reading-author').innerText = `${selected_read[0].author}`;
-        document.getElementById('current-read-image').innerHTML = `<img src="${selected_read[0].book_image}" alt="${selected_read[0].title}">`;
+        selectedRead = pushArr.filter((item) => item.uid === options);
+        document.getElementById('set-current-read').innerHTML = `
+        <div class="row no-gutters">
+          <div class="col-10">
+            <h2>${helper.stringLength(selectedRead[0].title, 20)}</h2>
+            <small>By ${selectedRead[0].author}</small>
+          </div>
+          <div class="col-2">
+            <div class="current-read-image">
+              <img src="${selectedRead[0].book_image}" alt="${selectedRead[0].title}">
+            </div>
+          </div>
+        </div>`;
 
         document.getElementById('current-page').disabled = false;
       });
 
       const currentPageSelect = document.getElementById('current-page');
-      currentPageSelect.addEventListener('keyup', function () {
-        const computePer = parseInt((currentPageSelect.value / parseInt(selected_read[0].num)) * 100);
-        if (currentPageSelect.value > parseInt(selected_read[0].num)) {
+      currentPageSelect.addEventListener('keyup', () => {
+        let computePer = Math.floor((parseInt(currentPageSelect.value, 10) / parseInt(selectedRead[0].num, 10)) * 100);
+        computePer = Number.isNaN(computePer) ? 0 : computePer;
+        if (currentPageSelect.value > parseInt(selectedRead[0].num, 10)) {
           document.querySelector('.exceed-page-msg').innerHTML = '<small class="text-danger">You have exceeded book total page</small>';
         } else {
           document.getElementById('progress-bar-book').style.width = `${computePer}%`;
@@ -664,8 +711,75 @@ function Book() {
           document.querySelector('.exceed-page-msg').innerHTML = '';
         }
       });
-    })
-  }
+
+      const saveCurrentRead = document.getElementById('save-current-read');
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user !== null) {
+          firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
+            snap.forEach((snapShot) => {
+              saveCurrentRead.addEventListener('click', () => {
+                if (currentReadSelect.value !== '' && currentPageSelect.value !== '') {
+                  const userRef = dbRef.child(`users/${user.uid}/${snapShot.key}`);
+
+                  userRef.update({
+                    currentRead: {
+                      book_id: selectedRead[0].uid,
+                      book_page: currentPageSelect.value,
+                    },
+                  }, () => {
+                    const ui = new UI();
+                    ui.displayMessage('Your current read has been updated succesfully!');
+                  });
+                }
+              });
+            });
+          });
+        }
+      });
+
+    });
+  };
+
+  this.displayCurrentRead = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
+          snap.forEach((snapShot) => {
+            const helper = new HelperMethod();
+            const bookId = snapShot.val().currentRead.book_id;
+            const bookPage = snapShot.val().currentRead.book_page;
+            if (bookId !== '0') {
+              firebase.database().ref(`addbook/${bookId}`).once('value', (snap) => {
+                const currentRead = snap.val();
+                document.getElementById('set-current-read').innerHTML = `
+              <div class="row no-gutters">
+                <div class="col-10">
+                  <h2>${helper.stringLength(currentRead.title, 20)}</h2>
+                  <small>By ${currentRead.author}</small>
+                </div>
+                <div class="col-2">
+                  <div class="current-read-image">
+                    <img src="${currentRead.book_image}" alt="${currentRead.title}">
+                  </div>
+                </div>
+              </div>`;
+
+                let computePer = Math.floor((parseInt(bookPage, 10) / parseInt(currentRead.num, 10)) * 100);
+                computePer = Number.isNaN(computePer) ? 0 : computePer;
+                document.getElementById('progress-bar-book').style.width = `${computePer}%`;
+                document.getElementById('progress-percentage-info').innerText = `${computePer}%`;
+              });
+            } else {
+              document.getElementById('set-current-read').innerHTML = `
+            <div class="row no-gutters">
+              <h4 class="text-center text-white w-100 mb-1">No Book Chosen!</h4>
+            </div>`;
+            }
+          });
+        });
+      }
+    });
+  };
 }
 
 function HelperMethod() {
@@ -682,6 +796,16 @@ function HelperMethod() {
 
 
 function UI() {
+  this.displayMessage = (msg) => {
+    document.getElementById('message-content').innerHTML = ` 
+    <div class="alert alert-success alert-dismissible font-weight-bold fade show" role="alert">
+      ${msg}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`;
+  };
+
   this.hideDisplayContent = (id1, id2) => {
     document.getElementById(id1).style.display = 'block';
     document.getElementById(id2).style.display = 'none';
@@ -1053,10 +1177,9 @@ function UI() {
                 }, () => {
                 }, () => {
                   uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-
                     userRef.update({
                       photoURL: downloadURL,
-                      username: profUsername
+                      username: profUsername,
                     }, () => {
                       location.reload();
                     });
@@ -1069,12 +1192,36 @@ function UI() {
                   location.reload();
                 });
               }
-
-            })
+              this.displayMessage('Your profile has been updated succesfully!')
+            });
           });
         });
       }
     });
+  };
+
+  this.updateLibrarianOfWeek = () => {
+    firebase.database().ref('addbook').once('value', (snap) => {
+      const getAllAddedBy = {};
+      snap.forEach((snapShot) => {
+        const addedBy = snapShot.val().added_by;
+        if (addedBy in getAllAddedBy) {
+          getAllAddedBy[addedBy] += 1;
+        } else {
+          getAllAddedBy[addedBy] = 1;
+        }
+      });
+      const sortAddedBy = Object.keys(getAllAddedBy).sort((a, b) => getAllAddedBy[b] - getAllAddedBy[a]);
+
+      const libbOfWeek = sortAddedBy[0];
+
+      firebase.database().ref(`users/${libbOfWeek}`).once('value', (snapLibb) => {
+        snapLibb.forEach((snapShot) => {
+          document.getElementById('libb-of-week-user').innerText = `${snapShot.val().username}`;
+        });
+      });
+    });
+
   };
 
 }
@@ -1183,13 +1330,15 @@ ui.rateBook();
 ui.showAuthForm();
 ui.filterBooksByGenre();
 ui.updateUser();
+ui.updateLibrarianOfWeek();
 
 const book = new Book();
 book.addBookToStore();
 book.editBookList();
 book.addAllBooksToDOM(sortBook);
 book.checkFavouriteBooks();
-book.updateCurrentRead();
+book.saveCurrentReadToStore();
+book.displayCurrentRead();
 
 
 $('#book-image').on('change', (event) => {

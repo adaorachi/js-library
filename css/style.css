@@ -247,6 +247,32 @@ p {
   font-size: 1.5rem;
 }
 
+.main-container .tab-section .app-links {
+  height: 100vh;
+}
+
+.main-container .tab-section .app-links .my-profile {
+  height: 10%;
+}
+
+.main-container .tab-section .app-links .libb-of-week {
+  height: 30%;
+  -webkit-box-shadow: 0px -2px 4px #3a3939;
+          box-shadow: 0px -2px 4px #3a3939;
+}
+
+.main-container .tab-section .app-links .libb-of-week .title.header {
+  color: #019cba;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.6rem;
+}
+
+.main-container .tab-section .app-links .libb-of-week .person {
+  font-family: "Lobster", cursive;
+  font-size: 1.2rem;
+}
+
 .main-container .tab-section .app-links img {
   width: 32px;
   height: 32px;
@@ -494,7 +520,8 @@ p {
   padding: 0.2rem 0 0;
 }
 
-.main-container .main-view-content .all-books .books-grid {
+.main-container .main-view-content .all-books .books-grid,
+.main-container .main-view-content .top-books .books-grid {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -502,16 +529,19 @@ p {
   grid-gap: 3rem 1rem;
 }
 
-.main-container .main-view-content .all-books .sort-book {
+.main-container .main-view-content .all-books .sort-book,
+.main-container .main-view-content .top-books .sort-book {
   margin-left: auto;
   width: 30%;
 }
 
-.main-container .main-view-content .all-books .filters-button-group .list-group {
+.main-container .main-view-content .all-books .filters-button-group .list-group,
+.main-container .main-view-content .top-books .filters-button-group .list-group {
   border-bottom: 1px solid #bbb;
 }
 
-.main-container .main-view-content .all-books .filters-button-group .list-group-item {
+.main-container .main-view-content .all-books .filters-button-group .list-group-item,
+.main-container .main-view-content .top-books .filters-button-group .list-group-item {
   color: #333;
   font-size: 1.1rem;
   font-family: "Vollkorn", serif;
@@ -521,16 +551,19 @@ p {
   cursor: pointer;
 }
 
-.main-container .main-view-content .all-books .filters-button-group .list-group-item:hover {
+.main-container .main-view-content .all-books .filters-button-group .list-group-item:hover,
+.main-container .main-view-content .top-books .filters-button-group .list-group-item:hover {
   color: #019cba;
 }
 
-.main-container .main-view-content .all-books .filters-button-group .list-group-item.active {
+.main-container .main-view-content .all-books .filters-button-group .list-group-item.active,
+.main-container .main-view-content .top-books .filters-button-group .list-group-item.active {
   position: relative;
   color: #019cba;
 }
 
-.main-container .main-view-content .all-books .filters-button-group .list-group-item.active::after {
+.main-container .main-view-content .all-books .filters-button-group .list-group-item.active::after,
+.main-container .main-view-content .top-books .filters-button-group .list-group-item.active::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -1079,7 +1112,7 @@ p {
 }
 
 .main-container .scroll-bar {
-  height: 84vh;
+  height: 60%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
