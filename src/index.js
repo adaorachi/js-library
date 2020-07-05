@@ -24,7 +24,7 @@ function Auth() {
 
       firebase.auth().createUserWithEmailAndPassword(emailAdd.value, password.value).then(() => {
         const user = firebase.auth().currentUser;
-        const [email, username, favouriteBooks, bookmarkBooks, readBooks, currentRead] = [user.email, user.email.split('@')[0], '0', '0', { book_id: '0', book_page: '0' }, '0'];
+        const [email, username, favouriteBooks, bookmarkBooks, readBooks, currentRead] = [user.email, user.email.split('@')[0], '0', '0', '0', { book_id: '0', book_page: '0' }];
         const userInfo = {
           email,
           username,
@@ -71,11 +71,11 @@ function Auth() {
         firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
           snap.forEach((snapShot) => {
             const userProfile = snapShot.val();
-            // location.reload()
             const ui = new UI();
             ui.displayMessage(`Welcome back ${userProfile.username}`);
           });
         });
+        // location.reload()
       })
         .catch((error) => {
           document.getElementById('login-error-msg').innerHTML = `<p class="login-error-msg text-danger">${error.message}</p>`;
@@ -84,7 +84,6 @@ function Auth() {
           }, 5000);
         });
     }
-
     const signInButton = document.getElementById('log-in-btn');
     signInButton.addEventListener('click', signUserIn);
   };
@@ -96,13 +95,19 @@ function Auth() {
       if (user !== null) {
         firebase.database().ref(`users/${user.uid}`).once('value', (snap) => {
           snap.forEach((snapShot) => {
-            const userProf = snapShot.val();
+            const userInfo = snapShot.val();
             document.querySelector('.user-profile').innerHTML = `
-            <img src="${userProf.photoURL}" alt="Profile Image">
-            <span class="username ml-3">${userProf.username.toUpperCase()}</span>`;
+            <img src="${userInfo.photoURL}" alt="Profile Image">
+            <span class="username ml-3">${userInfo.username.toUpperCase()}</span>`;
+
+            const book = new Book();
+            book.addAllBooksToDOM(sortBook, userInfo, user);
           });
         });
+
+
         ui.hideDisplayContent('app-container', 'login-form');
+
       } else {
         ui.hideDisplayContent('login-form', 'app-container');
       }
@@ -128,7 +133,8 @@ function Book() {
         if (key === 'read') {
           value = textField.checked;
         } else if (key === 'book_image') {
-          value = document.getElementById('book-image').files;
+          // eslint-disable-next-line prefer-destructuring
+          value = document.getElementById('book-image').files[0];
         } else {
           value = document.getElementById(textField.id).value;
         }
@@ -143,7 +149,6 @@ function Book() {
           const dataKey = validateFormKey[i];
           const msgError = document.getElementById(`msg-${dataKey}`);
 
-          const ui = new UI();
           ui.formErrorMsg(msgError, '<small id="error-msg">Required Field</small>', 'error-msg');
         }
       } else {
@@ -233,12 +238,10 @@ function Book() {
       data.uid = childKey;
       arr.push(data);
     });
-    // arr.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    // arr.sort((a, b) => a.genre - b.genre);
     return arr;
   };
 
-  this.addAllBooksToDOM = (sorted) => {
+  this.addAllBooksToDOM = (sorted, userInfo, userId) => {
     firebase.database().ref('addbook').once('value', (snapshot) => {
       const addBookToContent = document.querySelector('.all-books .content');
       const addManagedBookToYourContent = document.querySelector('#managed-books #your-collection .content');
@@ -250,60 +253,53 @@ function Book() {
       const pushArrTopReads = this.getAllBooksFromStore(snapshot);
       pushArrAll.sort(sorted);
       pushArrTopReads.sort((a, b) => a.votes - b.votes);
+      const favouriteReads = userInfo.favouriteBooks;
+      const bookmarkReads = userInfo.bookmarkBooks;
+      const readReads = userInfo.readBooks;
 
-      const userId = firebase.auth().currentUser;
-      let favouriteReads; let bookmarkReads; let readReads;
-      if (userId !== null) {
-        firebase.database().ref(`users/${userId.uid}`).once('value', (snap) => {
-          snap.forEach((snapShot) => {
-            const childData = snapShot.val();
-            const helper = new HelperMethod();
-            favouriteReads = childData.favouriteBooks;
-            bookmarkReads = childData.bookmarkBooks;
-            readReads = childData.readBooks;
+      const helper = new HelperMethod();
+      let node = '';
+      pushArrAll.forEach((item) => {
+        let favouriteIcons; let bookmarkIcons;
+        if (favouriteReads.split(',').indexOf(item.uid) >= 0) {
+          favouriteIcons = 'fas fa-heart liked-reads';
+        } else {
+          favouriteIcons = 'far fa-heart unliked-reads';
+        }
+        if (bookmarkReads.split(',').indexOf(item.uid) >= 0) {
+          bookmarkIcons = 'fas fa-bookmark booked-reads';
+        } else {
+          bookmarkIcons = 'far fa-bookmark unbooked-reads';
+        }
+        node += `<div class="item text-center ${item.genre}" data-category="${item.genre}">
+        <div class="item-image">
+          <img class="img"
+            src="${item.book_image}"
+            alt="${item.title}">
 
-            let node = '';
-            pushArrAll.forEach((item) => {
-              let favouriteIcons; let bookmarkIcons;
-              if (favouriteReads.split(',').indexOf(item.uid) >= 0) {
-                favouriteIcons = 'fas fa-heart liked-reads';
-              } else {
-                favouriteIcons = 'far fa-heart unliked-reads';
-              }
-              if (bookmarkReads.split(',').indexOf(item.uid) >= 0) {
-                bookmarkIcons = 'fas fa-bookmark booked-reads';
-              } else {
-                bookmarkIcons = 'far fa-bookmark unbooked-reads';
-              }
-              node += `<div class="item text-center ${item.genre}" data-category="${item.genre}">
-                <div class="item-image">
-                  <img class="img"
-                    src="${item.book_image}"
-                    alt="${item.title}">
+          <div class="like-icons">
+            <i class="${favouriteIcons} favourite-icon" id="like-icon-${item.uid}" data-like="${item.uid}"></i>
+            <i class="${bookmarkIcons} bookmark-icon" id="bookmark-icon-${item.uid}" data-bookmark="${item.uid}"></i>
+          </div>
+          
+          <div class="book-icons">
+            <span class="icons review-icon" id="review-icon-${item.uid}" data-review="${item.uid}">Reviews</span>
+            <span class="icons read-button" id="read-button-${item.uid}" data-toggle="modal" data-target="#bookModal" data-id="${item.uid}">Read</span>
+          </div>
+        </div>
+        <div class="info mt-1">
+          <h5>${helper.stringLength(item.title, 20)}</h5>
+          <p>By ${item.author}</p>
+        </div>
+        </div>`;
+      });
 
-                  <div class="like-icons">
-                    <i class="${favouriteIcons} favourite-icon" id="like-icon-${item.uid}" data-like="${item.uid}"></i>
-                    <i class="${bookmarkIcons} bookmark-icon" id="bookmark-icon-${item.uid}" data-bookmark="${item.uid}"></i>
-                  </div>
-                  
-                  <div class="book-icons">
-                    <span class="icons review-icon" id="review-icon-${item.uid}" data-review="${item.uid}">Reviews</span>
-                    <span class="icons read-button" id="read-button-${item.uid}" data-toggle="modal" data-target="#bookModal" data-id="${item.uid}">Read</span>
-                  </div>
-                </div>
-                <div class="info mt-1">
-                  <h5>${helper.stringLength(item.title, 20)}</h5>
-                  <p>By ${item.author}</p>
-                </div>
-                </div>`;
-            });
+      addBookToContent.innerHTML = node;
 
-            addBookToContent.innerHTML = node;
-
-            pushArrTopReads.slice(0, 4).forEach((item, index) => {
-              const nodeTop = document.createElement('div');
-              nodeTop.classList = `items items-${index}`;
-              nodeTop.innerHTML = `
+      pushArrTopReads.slice(0, 4).forEach((item, index) => {
+        const nodeTop = document.createElement('div');
+        nodeTop.classList = `items items-${index}`;
+        nodeTop.innerHTML = `
               <div class="item">
                 <div class="top-read-image">
                   <img class="image" src="${item.book_image}" alt="book-cover">
@@ -325,72 +321,67 @@ function Book() {
                 </div>
               </div>`;
 
-              addTopBookToContent.appendChild(nodeTop);
-            });
+        addTopBookToContent.appendChild(nodeTop);
+      });
 
-            pushArrManaged.forEach((item) => {
-              let nodeManaged = document.createElement('div');
-              let readIcons; let checkIcon; let readStatus;
-              if (readReads.split(',').indexOf(item.uid) >= 0) {
-                readIcons = 'cover cover-hover';
-                checkIcon = '<i class="fas fa-check"></i>';
-                readStatus = 'Read';
-              } else {
-                readIcons = 'cover cover-unhover';
-                checkIcon = '';
-                readStatus = 'Unread';
-              }
+      pushArrManaged.forEach((item) => {
+        const nodeManaged = document.createElement('div');
+        let readIcons; let checkIcon; let readStatus;
+        if (readReads.split(',').indexOf(item.uid) >= 0) {
+          readIcons = 'cover cover-hover';
+          checkIcon = '<i class="fas fa-check"></i>';
+          readStatus = 'Read';
+        } else {
+          readIcons = 'cover cover-unhover';
+          checkIcon = '';
+          readStatus = 'Unread';
+        }
 
-              let addIfUser = `
-              <div class="managed-icons">
-                <i class="fas fa-edit color-primary edit-icon" data-toggle="modal" data-target="#editBookModalLong" data-id="${item.uid}"></i>
-                <i class="fas fa-times-circle text-danger delete-icon" data-delete="${item.uid}" id="delete-book-${item.id}"></i>
-              </div>`;
+        const addIfUser = `
+          <div class="managed-icons">
+            <i class="fas fa-edit color-primary edit-icon" data-toggle="modal" data-target="#editBookModalLong" data-id="${item.uid}"></i>
+            <i class="fas fa-times-circle text-danger delete-icon" data-delete="${item.uid}" id="delete-book-${item.id}"></i>
+          </div>`;
 
-              nodeManaged.classList = 'managed-content text-center';
-              if (userId.uid == item.added_by) {
-                nodeManaged.innerHTML = `
-                  <div class= "position-relative">
-                    <img class="img-fluid cover-img"
-                      src="${item.book_image}"
-                      alt="book-cover" />
-                    <div class="hovered-content">
-                      <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
-                    </div>
-                  </div>
-                  ${addIfUser}
-                  <h5>${item.title}</h5>`;
-                addManagedBookToYourContent.append(nodeManaged);
+        nodeManaged.classList = 'managed-content text-center';
+        if (userId.uid === item.added_by) {
+          nodeManaged.innerHTML = `
+            <div class= "position-relative">
+              <img class="img-fluid cover-img"
+                src="${item.book_image}"
+                alt="book-cover" />
+              <div class="hovered-content">
+                <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
+              </div>
+            </div>
+            ${addIfUser}
+            <h5>${item.title}</h5>`;
+          addManagedBookToYourContent.append(nodeManaged);
 
-              } else {
-                nodeManaged.innerHTML = `
-                  <div class= "position-relative">
-                    <img class="img-fluid cover-img"
-                      src="${item.book_image}"
-                      alt="book-cover" />
-                    <div class="hovered-content">
-                      <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
-                    </div>
-                  </div>
-                  <h5>${item.title}</h5>`;
-                addManagedBookToOtherContent.append(nodeManaged);
-              }
+        } else {
+          nodeManaged.innerHTML = `
+            <div class= "position-relative">
+              <img class="img-fluid cover-img"
+                src="${item.book_image}"
+                alt="book-cover" />
+              <div class="hovered-content">
+                <div class="${readIcons} read-icon" id="read-book-${item.uid}" data-read="${item.uid}"> ${readStatus} ${checkIcon}</div>
+              </div>
+            </div>
+            <h5>${item.title}</h5>`;
+          addManagedBookToOtherContent.append(nodeManaged);
+        }
 
-            });
+      });
 
-            const ui = new UI();
-            ui.toggleReadBtn();
-            book.showEditBookModal();
-            book.deleteBook();
-            book.showReadBookModal(pushArrAll);
-            ui.slideshow();
-          });
-        });
-      } else {
-        favouriteReads = '';
-        bookmarkReads = '';
-        readReads = '';
-      }
+      const ui = new UI();
+      ui.toggleReadBtn();
+      book.showEditBookModal();
+      book.deleteBook();
+      book.showReadBookModal(pushArrAll);
+      ui.slideshow();
+      ui.filterBooksByGenre();
+
     });
   };
 
@@ -580,6 +571,7 @@ function Book() {
       document.querySelector(`#${id}`).addEventListener('click', () => {
         const dataReview = document.querySelector(`#${id}`).getAttribute('data-review');
 
+
         const localStorage = new LocalStorage();
         const storedReviewId = localStorage.setReviewId(dataReview);
 
@@ -620,6 +612,7 @@ function Book() {
         document.querySelector('.book-reviewed-title').innerText = filteredReviewedBook[0].title;
         document.querySelector('.review-content .hidden-id').innerHTML = `<input type="hidden" value="${storedReviewId}" id="review-id">`;
 
+
         firebase.database().ref('addreview').once('value', (snap) => {
           const pushedReview = [];
           snap.forEach((childSnapshot) => {
@@ -631,23 +624,25 @@ function Book() {
           ui.populateReview(pushedReview);
         });
       });
+      if (window.localStorage.getItem('review_id') !== 'no-reviews') {
+        const storedReviewId = window.localStorage.getItem('review_id');
+        const filteredReviewedBook = pushArr.filter((itemfil) => itemfil.uid === storedReviewId);
+        document.querySelector('.book-reviewed-title').innerText = filteredReviewedBook[0].title;
+        document.querySelector('.review-content .hidden-id').innerHTML = `<input type="hidden" value="${storedReviewId}" id="review-id">`;
 
-      const storedReviewId = window.localStorage.getItem('review_id');
-      const filteredReviewedBook = pushArr.filter((itemfil) => itemfil.uid === storedReviewId);
-      document.querySelector('.book-reviewed-title').innerText = filteredReviewedBook[0].title;
-      document.querySelector('.review-content .hidden-id').innerHTML = `<input type="hidden" value="${storedReviewId}" id="review-id">`;
-
-      firebase.database().ref(`addbook/${storedReviewId}`).once('value', (snap) => {
-        let reviewerIdArray = snap.val().reviewers;
-        reviewerIdArray = reviewerIdArray.split(',');
-        const userInfo = firebase.auth().currentUser;
-        if (userInfo != null) {
-          if (reviewerIdArray.includes(userInfo.uid)) {
-            document.querySelector('.read-review').innerHTML = '<h5 class="text-center text-white">You already have a review for this book!</h5>';
+        firebase.database().ref(`addbook/${storedReviewId}`).once('value', (snap) => {
+          let reviewerIdArray = snap.val().reviewers;
+          reviewerIdArray = reviewerIdArray.split(',');
+          const userInfo = firebase.auth().currentUser;
+          if (userInfo != null) {
+            if (reviewerIdArray.includes(userInfo.uid)) {
+              document.querySelector('.read-review').innerHTML = '<h5 class="text-center text-white">You already have a review for this book!</h5>';
+            }
           }
-        }
-      });
+        });
+      }
     });
+
   };
 
   this.deleteBook = () => {
@@ -847,7 +842,6 @@ function UI() {
   };
 
   this.populateReview = (pushedReview) => {
-
     const reviewedBook = pushedReview.filter((item) => item.review_id === window.localStorage.getItem('review_id'));
 
     if (reviewedBook.length > 0) {
@@ -1072,6 +1066,8 @@ function UI() {
     const filterButtons = document.querySelector('.filters-button-group');
     const sortButtons = document.querySelector('.sort-button-group');
     const allFilterButtons = document.querySelectorAll('.filters-button-group .list-group-item');
+    const allBookContent = document.querySelector('.all-books .content');
+
 
     filterButtons.addEventListener('click', (e) => {
       if (e.target.classList.contains('list-group-item')) {
@@ -1101,14 +1097,33 @@ function UI() {
     });
 
     sortButtons.addEventListener('change', () => {
+      const allBook = document.querySelectorAll('.all-books .content .item');
+      const cc = Array.from(allBook);
+
+      let li = '';
+      cc.sort(sortedBook).forEach((bookEle) => {
+        let createEle;
+        if (bookEle.classList.contains('hide')) {
+          createEle = `<div class="${bookEle.className} hide" data-category="${bookEle.className.split(' ')[2]}" style="display: none">`;
+        } else {
+          createEle = `<div class="${bookEle.className}" data-category="${bookEle.className.split(' ')[2]}">`;
+        }
+        li += `
+        ${createEle}
+          ${bookEle.innerHTML}
+        </div>`;
+      });
+
+      allBookContent.innerHTML = li;
       const { value } = sortButtons;
       function sortedBook(a, b) {
-        if (a[value] > b[value]) { return -1; }
-        if (a[value] < b[value]) { return 1; }
+        console.log('')
+        if (a.className > b.className) { return -1; }
+        if (a.className < b.className) { return 1; }
         return 0;
       }
       const book = new Book();
-      book.addAllBooksToDOM(sortedBook);
+      // book.addAllBooksToDOM(sortedBook);
     });
   };
 
@@ -1247,12 +1262,13 @@ function LocalStorage() {
     }
   };
 
-  this.setReviewId = (reviewId) => {
+  this.setDefaultReview = () => {
     if (window.localStorage.getItem('review_id') === null) {
       window.localStorage.setItem('review_id', 'no-reviews');
-    } else {
-      window.localStorage.setItem('review_id', reviewId);
     }
+  }
+  this.setReviewId = (reviewId) => {
+    window.localStorage.setItem('review_id', reviewId);
     const reviewID = window.localStorage.getItem('review_id');
     return reviewID;
   };
@@ -1314,6 +1330,7 @@ function sortBook(a, b) {
   if (new Date(a.created_at).getTime() > new Date(b.created_at).getTime()) { return 1; }
   return 0;
 }
+
 const auth = new Auth();
 auth.signUp();
 auth.signOut();
@@ -1323,19 +1340,20 @@ auth.userIsSignedIn();
 const localStorage = new LocalStorage();
 localStorage.getPage();
 localStorage.setPage('app-links');
+localStorage.setDefaultReview()
 
 const ui = new UI();
 ui.addReviewToStore();
 ui.rateBook();
 ui.showAuthForm();
-ui.filterBooksByGenre();
+// ui.filterBooksByGenre();
 ui.updateUser();
 ui.updateLibrarianOfWeek();
 
 const book = new Book();
 book.addBookToStore();
 book.editBookList();
-book.addAllBooksToDOM(sortBook);
+// book.addAllBooksToDOM(sortBook);
 book.checkFavouriteBooks();
 book.saveCurrentReadToStore();
 book.displayCurrentRead();
